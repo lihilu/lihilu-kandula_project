@@ -3,7 +3,6 @@ variable "purpose_tag" {
   type    = string
 }
 
-
 variable "key_name" {
   type = string
 }
@@ -32,7 +31,6 @@ variable "volume_type" {
     default = "gp2"
 }
 
-
 variable "vpc_cidr_block" {
   default = "10.0.0.0/16"
 }
@@ -55,12 +53,10 @@ variable "global_name_prefix" {
   description = "1st prefix in the resources' Name tags"
 }
 
-
 variable "route_tables_names" {
   type    = list(string)
   default = ["public", "private-a", "private-b"]
 }
-
 
 variable "destination_cidr_block"{
   default= "0.0.0.0/0"
