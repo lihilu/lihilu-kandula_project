@@ -64,7 +64,7 @@ resource "aws_security_group" "DB_instnaces_access" {
   vpc_id = aws_vpc.vpc.id
   name   = " DB-access"
   tags = {
-    "Name" = " DB-access"
+    Name             = format("%s-DB-access", var.global_name_prefix)
   }
 }
 

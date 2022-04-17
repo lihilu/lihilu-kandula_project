@@ -1,5 +1,5 @@
 variable "purpose_tag" {
-  default = "kandula project"
+  default = "kandula_project"
   type    = string
 }
 
