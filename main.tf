@@ -1,5 +1,4 @@
 
-
 module "instance" {
   source     = "./modules/"
 #   subnet_public_id= [var.subnet_public_id]
@@ -10,7 +9,14 @@ module "instance" {
   key_name   = module.ssh-key.key_name
 }
 
+module"consul_cluster" {
+  source = "./modules/consul"
+  my_vpc_id              = module.instance.my_vpc_id
+  key_name               = module.ssh-key.key_name
+  target_group_arns      = module.instance.target_group_arns
+  private_subnet_id      = module.instance.private_subnet_id
+}
 
 module "ssh-key" {
-  source    = "./modules/ssh-key"
+  source = "./modules/ssh-key"
 }

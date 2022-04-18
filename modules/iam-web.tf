@@ -35,8 +35,8 @@ resource "aws_iam_role_policy" "adminrolepo" {
            "s3:*"
         ],
         "Resource": [
-            "arn:aws:s3:::s3bucketwiskey",
-            "arn:aws:s3:::s3bucketwiskey/*"
+            "arn:aws:s3:::lihi-opsschool-mid-project-state",
+            "arn:aws:s3:::lihi-opsschool-mid-project-state/*"
         ]
     },
     {
@@ -48,4 +48,3 @@ resource "aws_iam_role_policy" "adminrolepo" {
 }
 EOT
 }
-

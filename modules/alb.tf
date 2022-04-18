@@ -34,7 +34,7 @@ resource "aws_lb_target_group" "web-alb-tg" {
   }
 
   tags = {
-    "Name" = "web-target-group-${aws_vpc.vpc.id}"
+    Name = "web-target-group-${aws_vpc.vpc.id}"
   }
 }
 
