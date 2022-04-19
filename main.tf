@@ -1,7 +1,7 @@
 
 module "instance" {
   source     = "./modules/"
-#   subnet_public_id= [var.subnet_public_id]
+  consul_security_group_id= module.consul_cluster.consul_security_group_id
 #   subnet_private_id = [var.subnet_private_id]
 #   aws_vpc =  var.vpc
 #   sg_pub_id = var.sg_pub_id

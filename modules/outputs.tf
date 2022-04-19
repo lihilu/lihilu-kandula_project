@@ -1,5 +1,5 @@
-output "public_ip" {
-  value = join(",",concat(aws_instance.ec2_web.*.public_ip))
+output "bastion_ip" {
+  value = aws_instance.bastion_host.*.public_ip
 }
  output "my_vpc_id" {
    value = aws_vpc.vpc.id

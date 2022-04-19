@@ -8,7 +8,7 @@ variable "key_name" {
 }
 
 variable "num_web_server" {
-    default = "2"
+    default = "1"
     description = "Num of web servers connected to public subbnet with ngnix"
 }
 
@@ -61,3 +61,5 @@ variable "route_tables_names" {
 variable "destination_cidr_block"{
   default= "0.0.0.0/0"
 }
+
+variable "consul_security_group_id"{}
