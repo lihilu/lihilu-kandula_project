@@ -1,5 +1,10 @@
 
-output "bastion_ip" {
-  value       =  module.instance.bastion_ip
-  description = "bastion ip"
+output "bastion_public_ip" {
+  value       =  module.instance.bastion_public_ip
+  description = "bastion public ip"
+}
+
+output "bastion_private_ip" {
+  value       =  module.instance.bastion_private_ip
+  description = "bastion private ip"
 }
