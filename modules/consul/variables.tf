@@ -3,6 +3,11 @@ variable "consul_servers"{
     description = "Num of consul servers"
 }
 
+variable "consul_clients" {
+    default ="1"
+    description = "Num of consul agents" 
+}
+
 variable "my_vpc_id" {}
 
 variable "consul_join_tag_key" {

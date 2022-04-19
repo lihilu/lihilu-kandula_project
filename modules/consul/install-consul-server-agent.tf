@@ -90,7 +90,6 @@ set -e
 CONSUL_VERSION=${var.consul_version}
 echo "Grabbing IPs..."
 PRIVATE_IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
-PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
 echo "Installing dependencies..."
 apt-get -qq update &>/dev/null
 apt-get -yqq install nginx 
@@ -123,7 +122,6 @@ tee /etc/consul.d/config.json > /dev/null <<EOF
 {
   "bind_addr": "$PRIVATE_IP",
   "advertise_addr": "$PRIVATE_IP",
-  "advertise_addr_wan": "$PUBLIC_IP",
   "data_dir": "/opt/consul",
   "datacenter": "opsschool-Lihi",
   "encrypt": "uDBV4e+LbFW3019YKPxIrg==",
