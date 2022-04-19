@@ -1,4 +1,3 @@
-
 # data source for vanilla Ubuntu AWS AMI as base image for cluster
 data "aws_ami" "ubuntu_16_consul" {
   most_recent = true
@@ -52,7 +51,7 @@ resource "aws_launch_configuration" "consul_servers" {
   image_id        = data.aws_ami.ubuntu_16_consul.id
   instance_type   = var.consul_instance_type
   key_name        = var.key_name
-  security_groups = [aws_security_group.consul_security_group.id]
+  security_groups = [aws_security_group.consul_security_group.id,var.lb_security_group]
   user_data       = local.consul_server-userdata
   #associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name
@@ -66,5 +65,3 @@ resource "aws_launch_configuration" "consul_servers" {
      create_before_destroy = true
    }
 }
-
-

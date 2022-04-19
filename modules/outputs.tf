@@ -14,6 +14,9 @@ output "public_ip" {
  }
 
   output "target_group_arns" {
-    value = aws_lb_target_group.web-alb-tg.arn
+    value = aws_lb_target_group.consul-server.arn
   }
 
+  output "lb_security_group" {
+    value= aws_security_group.lb_sg.id
+  }

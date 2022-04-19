@@ -32,3 +32,5 @@ variable "key_name" {}
 variable "target_group_arns"{}
 
 variable "private_subnet_id" {}
+
+variable "lb_security_group" {}

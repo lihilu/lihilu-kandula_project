@@ -15,6 +15,7 @@ module"consul_cluster" {
   key_name               = module.ssh-key.key_name
   target_group_arns      = module.instance.target_group_arns
   private_subnet_id      = module.instance.private_subnet_id
+  lb_security_group      = module.instance.lb_security_group
 }
 
 module "ssh-key" {
