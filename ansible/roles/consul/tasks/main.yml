@@ -1,0 +1,97 @@
+---
+ 
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Installing dependencies..."
+
+  - name: install dependencies on target ec2 instances
+    apt:
+      name:
+        - unzip
+        - dnsmasq
+      state: present
+      update_cache: yes
+
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Enable and restart dnsmasq service..."
+
+  - name: Enable and restart dnsmasq service
+    service:
+      name: dnsmasq
+      enabled: yes
+
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Configure dnsmasq..."
+
+  - name: Create dnsmasq configuration
+    copy:
+      src: dnsmasq.conf
+      dest: "{{ dnsmasq_configuration_file }}"
+      mode: "0644"
+    notify:
+      - restart dnsmasq
+
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Configure resolved.conf file..."
+
+  - name: configure resolved.conf
+    copy:
+      src: resolved.conf
+      dest: "{{ resolved_conf_file_path }}"
+      mode: "0644"
+    notify:
+      - restart systemd-resolved
+  
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Create user and group"
+
+  - name: create consul group
+    group:
+      name: consul
+      state: present
+
+  - name: create consul user
+    user:
+      name: consul
+      group: consul
+
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Create folders"
+
+  - name: Create folder for consul
+    file:
+      path: "{{ consul_folders_to_create }}"
+      state: directory
+      owner: consul
+      group: consul
+
+  - name: download consul file
+    get_url:
+      url: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
+      dest: /tmp
+    register: zipfile
+
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Installing consul server... {{ zipfile.dest }}"
+
+  - name: unzip consul
+    unarchive:
+      src: "{{ zipfile.dest }}"
+      dest: /usr/local/bin/
+      owner: consul
+      group: consul
+      remote_src: yes
+  
+  - name: configure consul
+    become: yes
+    become_user: consul
+    template:
+      src: consul.config.j2
+      dest: "{{ consul_configuration_file_path }}"
+      mode: "0644"

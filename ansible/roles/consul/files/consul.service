@@ -1,0 +1,21 @@
+[Unit]
+Description=Consul service discovery server
+Requires=network-online.target
+After=network.target
+
+[Service]
+User=consul
+Group=consul
+Restart=on-failure
+Environment=GOMAXPROCS=2
+ExecStartPre=+/bin/mkdir -p /run/consul
+ExecStartPre=+/bin/chown consul:consul /run/consul
+ExecStart=/usr/local/bin/consul agent -pid-file=/run/consul/consul.pid -config-dir=/etc/consul.d
+ExecReload=/bin/kill -s HUP $MAINPID
+KillSignal=SIGINT
+TimeoutStopSec=5
+ExecStartPre=+/bin/mkdir -p /run/consul
+ExecStartPre=+/bin/chown consul:consul /run/consul
+
+[Install]
+WantedBy=multi-user.target
