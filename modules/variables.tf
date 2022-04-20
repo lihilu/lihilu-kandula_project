@@ -63,3 +63,5 @@ variable "destination_cidr_block"{
 }
 
 variable "consul_security_group_id"{}
+
+variable "bastion_private_ip" {}
