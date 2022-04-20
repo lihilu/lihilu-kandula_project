@@ -1,0 +1,8 @@
+---
+- hosts: consul_server
+  remote_user: "ubuntu"
+  become: true
+  roles:
+    - "roles/consul"
+  vars_files:
+    - "~/ansible/roles/consul/vars/vars.yml"
