@@ -7,4 +7,4 @@ dnsmasq_configuration_file: /etc/dnsmasq.d/10-consul
 consul_configuration_file_path: /etc/consul.d/config.json
 consul_service_conf_file_path: /etc/systemd/system/consul.service
 resolved_conf_file_path: /etc/systemd/resolved.conf
-consul_folders_to_create: ["/opt/consul", "/etc/consul.d", "run/consul"]
+#consul_folders_to_create: ['/opt/consul', '/etc/consul.d', 'run/consul']
