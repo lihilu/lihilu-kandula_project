@@ -1,0 +1,10 @@
+---
+consul_version: "1.8.5"
+consul_dc_name: "opsschool-Lihi"
+consul_join_tag_key: "consul_join"
+consul_join_tag_value: "training"
+dnsmasq_configuration_file: /etc/dnsmasq.d/10-consul
+consul_configuration_file_path: /etc/consul.d/config.json
+consul_service_conf_file_path: /etc/systemd/system/consul.service
+resolved_conf_file_path: /etc/systemd/resolved.conf
+#consul_folders_to_create: ['/opt/consul', '/etc/consul.d', 'run/consul']

@@ -1,0 +1,91 @@
+---
+ 
+  - name: Print a message
+    ansible.builtin.debug:
+        msg: "Installing consul server..."
+
+  - name: install dependencies on target ec2 instances
+    apt:
+      name:
+        - unzip
+        - dnsmasq
+      state: present
+      update_cache: yes
+
+  - name: Enable and restart dnsmasq service
+    service:
+      name: dnsmasq
+      enabled: yes
+
+  - name: Create dnsmasq configuration
+    copy:
+      src: dnsmasq.conf
+      dest: "{{ dnsmasq_configuration_file }}"
+      mode: "0644"
+    notify:
+      - restart dnsmasq
+
+  - name: configure resolved.conf
+    copy:
+      src: resolved.conf
+      dest: "{{ resolved_conf_file_path }}"
+      mode: "0644"
+    notify:
+      - restart systemd-resolved
+
+  - name: create consul group
+    group:
+      name: consul
+      state: present
+
+  - name: create consul user
+    user:
+      name: consul
+      group: consul
+
+  - name: Create folder for consul
+    ansible.builtin.file:
+      path: '{{ item }}'
+      state: directory
+      owner: consul
+      group: consul
+    with_items: 
+    - /opt/consul
+    - /etc/consul.d
+    - /run/consul
+
+  - name: download consul file
+    get_url:
+      url: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
+      dest: /tmp
+    register: zipfile
+
+  - name: unzip consul
+    unarchive:
+      src: "{{ zipfile.dest }}"
+      dest: /usr/local/bin/
+      owner: consul
+      group: consul
+      remote_src: yes
+  
+  - name: configure consul
+    become: yes
+   # become_user: consul
+    template:
+      src: consul.config.j2
+      dest: "{{ consul_configuration_file_path }}"
+      mode: "0644"
+
+  - name: configure consul service
+    copy:
+      src: ./files/consul.service
+      dest: "{{ consul_service_conf_file_path }}"
+      group: consul
+      owner: consul
+
+  - name: enable and start consul.d service
+    systemd:
+      daemon_reload: yes
+      name: consul
+      enabled: yes
+      state: restarted
