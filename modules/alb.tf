@@ -32,16 +32,6 @@ resource "aws_security_group" "lb_sg" {
   }
 }
 
-# resource "aws_lb_listener" "web-alb-listener" {
-#   load_balancer_arn = aws_lb.web-alb.arn
-#   port              = 80
-#   protocol          = "HTTP"
-
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.consul-server.arn
-#   }
-# }
 
 resource "aws_alb_listener" "consul" {
   load_balancer_arn =  aws_lb.web-alb.arn
@@ -54,21 +44,6 @@ resource "aws_alb_listener" "consul" {
   }
 }
 
-# resource "aws_lb_target_group" "web-alb-tg" {
-#   name     = "web-alb-target-group"
-#   port     = 80
-#   protocol = "HTTP"
-#   vpc_id   = aws_vpc.vpc.id
-
-#   health_check {
-#     enabled = true
-#     path    = "/"
-#   }
-
-#   tags = {
-#    # Name = "web-target-group-${aws_vpc.vpc.id}"
-#   }
-# }
 
 resource "aws_lb_target_group" "consul-server" {
   name     = "consul-server-target-group"

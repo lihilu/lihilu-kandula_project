@@ -8,3 +8,8 @@ output "bastion_private_ip" {
   value       =  module.instance.bastion_private_ip
   description = "bastion private ip"
 }
+
+output "alb_dns"{
+  value = module.instance.alb_dns
+  description = "LB DNS"
+}

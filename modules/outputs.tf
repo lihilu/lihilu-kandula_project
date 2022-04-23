@@ -6,6 +6,9 @@ output "bastion_private_ip" {
   value = aws_instance.bastion_host.*.private_ip
 }
 
+output "security_group_db_id"{
+  value = aws_security_group.DB_instnaces_access.id
+}
 
  output "my_vpc_id" {
    value = aws_vpc.vpc.id
@@ -15,8 +18,12 @@ output "bastion_private_ip" {
    value = join(",", concat(aws_subnet.public.*.id))
  }
 
-  output "private_subnet_id" {
+ output "private_subnet_id" {
    value = join(",", concat(aws_subnet.private.*.id))
+ }
+ 
+  output "private_subnet_id_for_ansible" {
+   value = aws_subnet.private.*.id[0]
  }
 
   output "target_group_arns" {
@@ -25,4 +32,12 @@ output "bastion_private_ip" {
 
   output "lb_security_group" {
     value= aws_security_group.lb_sg.id
+  }
+
+  output "data_ubuntu_ami_id" {
+    value= data.aws_ami.ubuntu.id
+  }
+
+  output "alb_dns"{
+    value = aws_lb.web-alb.dns_name
   }

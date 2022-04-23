@@ -18,6 +18,14 @@ module"consul_cluster" {
   lb_security_group      = module.instance.lb_security_group
 }
 
+module "ansible_server"{
+  source = "./modules/ansible"
+  key_name = module.ssh-key.key_name
+  security_group_db_id=module.instance.security_group_db_id
+  private_subnet_id_for_ansible      = module.instance.private_subnet_id_for_ansible
+  data_ubuntu_ami_id     = module.instance.data_ubuntu_ami_id
+}
+
 module "ssh-key" {
   source = "./modules/ssh-key"
 }
