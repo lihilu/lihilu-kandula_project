@@ -1,15 +1,14 @@
 variable "purpose_tag" {
-  default = "kandula project"
+  default = "kandula_project"
   type    = string
 }
-
 
 variable "key_name" {
   type = string
 }
 
 variable "num_web_server" {
-    default = "2"
+    default = "1"
     description = "Num of web servers connected to public subbnet with ngnix"
 }
 
@@ -31,7 +30,6 @@ variable "volume_size" {
 variable "volume_type" {
     default = "gp2"
 }
-
 
 variable "vpc_cidr_block" {
   default = "10.0.0.0/16"
@@ -55,13 +53,15 @@ variable "global_name_prefix" {
   description = "1st prefix in the resources' Name tags"
 }
 
-
 variable "route_tables_names" {
   type    = list(string)
   default = ["public", "private-a", "private-b"]
 }
 
-
 variable "destination_cidr_block"{
   default= "0.0.0.0/0"
 }
+
+variable "consul_security_group_id"{}
+
+variable "bastion_private_ip" {}

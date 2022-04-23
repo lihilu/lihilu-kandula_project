@@ -82,7 +82,6 @@ resource "aws_route_table" "route_tables" {
 
   tags = {
     "Name"                  = "RTB_${var.route_tables_names[count.index]}_${var.purpose_tag}"
-
   }
 }
 
