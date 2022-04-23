@@ -1,3 +1,4 @@
+
 variable "purpose_tag" {
   default = "kandula_project"
   type    = string
@@ -64,4 +65,3 @@ variable "destination_cidr_block"{
 
 variable "consul_security_group_id"{}
 
-variable "bastion_private_ip" {}

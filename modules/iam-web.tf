@@ -1,3 +1,4 @@
+
 resource "aws_iam_role" "web_admin" {
   name        = "web_admin"
   assume_role_policy =<<EOF
@@ -47,4 +48,5 @@ resource "aws_iam_role_policy" "adminrolepo" {
   ]
 }
 EOT
+
 }

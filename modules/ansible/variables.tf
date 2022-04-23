@@ -1,3 +1,4 @@
+
 variable "ansible_server"{
   default = "1"  
 }
@@ -13,4 +14,3 @@ variable "security_group_db_id" {}
 
 variable "private_subnet_id_for_ansible" {}
 
-variable "data_ubuntu_ami_id" {}

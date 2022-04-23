@@ -1,3 +1,4 @@
+
 locals {
  ansible_server-userdata = <<USERDATA
 #!/usr/bin/env bash
@@ -28,4 +29,3 @@ EODMCF
 
 
 USERDATA
- }
