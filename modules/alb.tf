@@ -1,3 +1,4 @@
+
 resource "aws_lb" "web-alb" {
   name                       = "alb-${aws_vpc.vpc.id}"
   internal                   = false

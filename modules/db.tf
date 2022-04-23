@@ -1,3 +1,4 @@
+
 // Configure the EC2 instance in a private subnet
 resource "aws_instance" "ec2_db" {
   ami                         = data.aws_ami.ubuntu.id
@@ -11,4 +12,5 @@ resource "aws_instance" "ec2_db" {
     "Name" = "DB - ${count.index}"
     "purpose"             = var.purpose_tag
   }
+
 }

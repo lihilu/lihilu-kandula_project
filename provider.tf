@@ -5,6 +5,7 @@ terraform {
       source = "hashicorp/aws"
       version = "~> 3.72.0"
     }
+    random= "~> 2.3.0"
     # kubernetes = {
     #   source  = "hashicorp/kubernetes"
     #   version = ">=2.7.1"

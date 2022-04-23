@@ -1,3 +1,4 @@
+
 variable "consul_servers"{
     default ="3"
     description = "Num of consul servers"

@@ -1,3 +1,4 @@
+
 locals {
  consul_server-userdata = <<USERDATA
 #!/usr/bin/env bash
@@ -182,3 +183,4 @@ systemctl restart nginx
 exit 0
 USERDATA
 }
+
