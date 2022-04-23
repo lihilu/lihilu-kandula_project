@@ -1,3 +1,4 @@
+
 resource "aws_security_group" "consul_security_group" {
   name        = "test-consul-sg"
   description = "Consul servers"
