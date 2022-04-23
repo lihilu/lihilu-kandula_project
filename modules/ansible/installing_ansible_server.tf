@@ -10,7 +10,6 @@ apt -Y install python3-pip
 pip install boto3
 sudo usermod -aG sudo ubuntu
 
-
 cat << EODMCF >/etc/ansible/ansible.cfg
 [defaults]
 host_key_checking = False
