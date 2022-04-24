@@ -2,7 +2,7 @@
 module "instance" {
   source     = "./modules/"
   consul_security_group_id= module.consul_cluster.consul_security_group_id
-  bastion_private_ip = module.instance.bastion_private_ip
+#  bastion_private_ip = module.instance.bastion_private_ip
 #   aws_vpc =  var.vpc
 #   sg_pub_id = var.sg_pub_id
 #   sg_priv_id  = var.sg_priv_id

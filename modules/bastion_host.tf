@@ -33,6 +33,8 @@ resource "aws_instance" "bastion_host" {
     var.consul_security_group_id
   ]
 
+  user_data                   =local.bastion_connect_ssh
+
   tags = {
     Name         = "bastion-host"
     bastion_host = "true"

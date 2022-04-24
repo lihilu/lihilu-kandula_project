@@ -55,8 +55,6 @@ resource "aws_lb_target_group" "consul-server" {
     enabled = true
     path = "/"
     port = 8500
-    healthy_threshold = 3
-    unhealthy_threshold = 2
     timeout = 8
     interval = 10
     matcher = "200"  # has to be HTTP 200 or fails
