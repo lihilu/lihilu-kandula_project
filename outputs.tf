@@ -13,3 +13,4 @@ output "bastion_private_ip" {
 output "alb_dns"{
   value = module.instance.alb_dns
   description = "LB DNS"
+  }
