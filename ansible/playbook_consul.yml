@@ -1,8 +1,0 @@
----
-- hosts: consul_server
-  remote_user: "ubuntu"
-  become: true
-  roles:
-    - "roles/consul"
-  vars_files:
-    - "~/kandula_project/ansible/roles/consul/vars/vars.yml"
