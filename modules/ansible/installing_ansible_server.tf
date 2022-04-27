@@ -1,6 +1,6 @@
 
 locals {
- ansible_server-userdata = <<USERDATA
+  ansible_server-userdata = <<USERDATA
 #!/usr/bin/env bash
 set -e
 

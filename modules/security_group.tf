@@ -5,11 +5,11 @@
 
 
 resource "aws_security_group" "common_sg" {
-  name               = "common-sg"
-  description        = "Allow ssh, ping and egress traffic"
-  vpc_id             = aws_vpc.vpc.id
+  name        = "common-sg"
+  description = "Allow ssh, ping and egress traffic"
+  vpc_id      = aws_vpc.vpc.id
   tags = {
-    Name             = format("%s-common-sg", var.global_name_prefix)
+    Name = format("%s-common-sg", var.global_name_prefix)
   }
   # lifecycle {
   #   create_before_destroy = true
@@ -55,7 +55,7 @@ resource "aws_security_group" "DB_instnaces_access" {
   vpc_id = aws_vpc.vpc.id
   name   = " DB-access"
   tags = {
-    Name             = format("%s-DB-access", var.global_name_prefix)
+    Name = format("%s-DB-access", var.global_name_prefix)
   }
 }
 

@@ -9,8 +9,8 @@ resource "aws_instance" "ec2_db" {
   subnet_id                   = aws_subnet.private[count.index].id
   vpc_security_group_ids      = [aws_security_group.DB_instnaces_access.id]
   tags = {
-    "Name" = "DB - ${count.index}"
-    "purpose"             = var.default_tags
+    "Name"    = "DB - ${count.index}"
+    "purpose" = var.default_tags
   }
 
 }

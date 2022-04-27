@@ -1,6 +1,6 @@
 
 resource "aws_iam_instance_profile" "instance_profile" {
-  name_prefix = "iam-instance-profile-consul" 
+  name_prefix = "iam-instance-profile-consul"
   role        = aws_iam_role.instance_role.name
 }
 

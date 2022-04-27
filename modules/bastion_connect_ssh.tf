@@ -1,6 +1,6 @@
 
 locals {
- bastion_connect_ssh = <<USERDATA
+  bastion_connect_ssh = <<USERDATA
 #!/bin/bash
 eval "$(ssh-agent -s)"
 ssh-add project_instance_key.pem

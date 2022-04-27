@@ -1,7 +1,7 @@
 
 resource "aws_iam_role" "web_admin" {
-  name        = "web_admin"
-  assume_role_policy =<<EOF
+  name               = "web_admin"
+  assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -19,14 +19,14 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "web_admin" {
-    name = "web_admin"
-    role = "${aws_iam_role.web_admin.name}" 
+  name = "web_admin"
+  role = aws_iam_role.web_admin.name
 }
 
 resource "aws_iam_role_policy" "adminrolepo" {
-    name = "adminrolepo"
-    role = "${aws_iam_role.web_admin.id}"
-    policy = <<EOT
+  name   = "adminrolepo"
+  role   = aws_iam_role.web_admin.id
+  policy = <<EOT
 {
   "Version": "2012-10-17",
   "Statement": [

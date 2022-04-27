@@ -1,19 +1,19 @@
 
-variable "consul_servers"{
-    default ="3"
-    description = "Num of consul servers"
+variable "consul_servers" {
+  default     = "3"
+  description = "Num of consul servers"
 }
 
 variable "consul_clients" {
-    default ="1"
-    description = "Num of consul agents" 
+  default     = "1"
+  description = "Num of consul agents"
 }
 
 variable "my_vpc_id" {}
 
 variable "consul_join_tag_key" {
   description = "The key of the tag to auto-jon on EC2."
-  default     = "consul_join" 
+  default     = "consul_join"
 }
 
 variable "consul_join_tag_value" {
@@ -35,7 +35,7 @@ variable "consul_version" {
 
 variable "key_name" {}
 
-variable "target_group_arns"{}
+variable "target_group_arns" {}
 
 variable "private_subnet_id" {}
 

@@ -10,7 +10,7 @@ resource "aws_instance" "ansible_server" {
   user_data                   = local.ansible_server-userdata
   iam_instance_profile        = var.aws_iam_instance_profile_name
   tags = {
-    "Name" = "ansible-server"
+    "Name"    = "ansible-server"
     "purpose" = var.default_tags
   }
 }

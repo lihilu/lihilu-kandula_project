@@ -8,9 +8,9 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_vpc" "vpc" {
-  cidr_block           = var.vpc_cidr_block
+  cidr_block = var.vpc_cidr_block
   tags = {
-    "Name"             = "VPC - ${var.default_tags}"
+    "Name" = "VPC - ${var.default_tags}"
   }
 }
 
@@ -23,8 +23,8 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    "Name"                = "Public_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"             = var.default_tags
+    "Name"    = "Public_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
+    "purpose" = var.default_tags
   }
 }
 
@@ -36,40 +36,40 @@ resource "aws_subnet" "private" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    "Name"                = "Private_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"             = var.default_tags
+    "Name"    = "Private_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
+    "purpose" = var.default_tags
   }
 }
 
 # IGW
 resource "aws_internet_gateway" "igw" {
-  vpc_id                   = aws_vpc.vpc.id
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
-    "Name"                 = "IGW"
-    "purpose"              = var.default_tags
+    "Name"    = "IGW"
+    "purpose" = var.default_tags
   }
 }
 
 # EIPs (for nats)
 resource "aws_eip" "eip" {
-  count                    = length(var.public_subnet_cidrs)
+  count = length(var.public_subnet_cidrs)
 
   tags = {
-    "Name"                 = "NAT_elastic_ip_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"              = var.default_tags
+    "Name"    = "NAT_elastic_ip_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
+    "purpose" = var.default_tags
   }
 }
 
 # NATs
 resource "aws_nat_gateway" "nat" {
-  count                     = length(var.public_subnet_cidrs)
-  allocation_id             = aws_eip.eip.*.id[count.index]
-  subnet_id                 = aws_subnet.public.*.id[count.index]
+  count         = length(var.public_subnet_cidrs)
+  allocation_id = aws_eip.eip.*.id[count.index]
+  subnet_id     = aws_subnet.public.*.id[count.index]
 
   tags = {
-    "Name"                  = "NAT_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"               = var.default_tags
+    "Name"    = "NAT_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
+    "purpose" = var.default_tags
   }
 }
 
@@ -78,30 +78,30 @@ resource "aws_nat_gateway" "nat" {
 ######################################################################
 
 resource "aws_route_table" "route_tables" {
-  count                     = length(var.route_tables_names)
-  vpc_id                    = aws_vpc.vpc.id
+  count  = length(var.route_tables_names)
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
-    "Name"                  = "RTB_${var.route_tables_names[count.index]}"
+    "Name" = "RTB_${var.route_tables_names[count.index]}"
   }
 }
 
 resource "aws_route_table_association" "public" {
-  count                     = length(var.public_subnet_cidrs)
-  subnet_id                 = aws_subnet.public.*.id[count.index]
-  route_table_id            = aws_route_table.route_tables[0].id
+  count          = length(var.public_subnet_cidrs)
+  subnet_id      = aws_subnet.public.*.id[count.index]
+  route_table_id = aws_route_table.route_tables[0].id
 }
 
 resource "aws_route_table_association" "private" {
-  count                    = length(var.private_subnet_cidrs)
-  subnet_id                = aws_subnet.private.*.id[count.index]
-  route_table_id           = aws_route_table.route_tables[count.index + 1].id
+  count          = length(var.private_subnet_cidrs)
+  subnet_id      = aws_subnet.private.*.id[count.index]
+  route_table_id = aws_route_table.route_tables[count.index + 1].id
 }
 
 resource "aws_route" "public" {
-  route_table_id           = aws_route_table.route_tables[0].id
-  destination_cidr_block   = var.destination_cidr_block
-  gateway_id               = aws_internet_gateway.igw.id
+  route_table_id         = aws_route_table.route_tables[0].id
+  destination_cidr_block = var.destination_cidr_block
+  gateway_id             = aws_internet_gateway.igw.id
 }
 
 resource "aws_route" "private" {

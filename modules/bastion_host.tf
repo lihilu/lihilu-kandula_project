@@ -26,21 +26,21 @@ resource "aws_instance" "bastion_host" {
   key_name                    = var.key_name
   iam_instance_profile        = aws_iam_instance_profile.web_admin.name
   subnet_id                   = aws_subnet.public[count.index].id
-  
+
   vpc_security_group_ids = [
     aws_security_group.common_sg.id,
     aws_security_group.bastion_sg.id,
     var.consul_security_group_id
   ]
 
-  user_data                   =local.bastion_connect_ssh
+  user_data = local.bastion_connect_ssh
 
   tags = {
     Name         = "bastion-host"
     bastion_host = "true"
-    purpose  = var.default_tags
+    purpose      = var.default_tags
   }
-  
+
 }
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-sg"

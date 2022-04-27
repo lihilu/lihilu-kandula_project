@@ -127,12 +127,12 @@ resource "aws_security_group_rule" "consul_dns_udp" {
 }
 
 
- resource "aws_security_group_rule" "consul_http_acess" {
-     description       = "allow http access from anywhere"
-     from_port         = 80
-     protocol          = "tcp"
-     security_group_id = aws_security_group.consul_security_group.id
-     to_port           = 80
-     type              = "ingress"
-     cidr_blocks       = ["0.0.0.0/0"]
- }
+resource "aws_security_group_rule" "consul_http_acess" {
+  description       = "allow http access from anywhere"
+  from_port         = 80
+  protocol          = "tcp"
+  security_group_id = aws_security_group.consul_security_group.id
+  to_port           = 80
+  type              = "ingress"
+  cidr_blocks       = ["0.0.0.0/0"]
+}

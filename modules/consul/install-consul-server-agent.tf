@@ -1,6 +1,6 @@
 
 locals {
- consul_server-userdata = <<USERDATA
+  consul_server-userdata = <<USERDATA
 #!/usr/bin/env bash
 set -e
 ### set consul version
@@ -84,7 +84,7 @@ exit 0
 USERDATA
 
 
- consul_agent-userdata = <<USERDATA
+  consul_agent-userdata = <<USERDATA
 #!/usr/bin/env bash
 set -e
 ### set consul version

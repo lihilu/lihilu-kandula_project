@@ -7,38 +7,38 @@ output "bastion_private_ip" {
   value = aws_instance.bastion_host.*.private_ip
 }
 
-output "security_group_db_id"{
+output "security_group_db_id" {
   value = aws_security_group.DB_instnaces_access.id
 }
 
- output "my_vpc_id" {
-   value = aws_vpc.vpc.id
- }
+output "my_vpc_id" {
+  value = aws_vpc.vpc.id
+}
 
- output "public_subnet_id" {
-   value = join(",", concat(aws_subnet.public.*.id))
- }
+output "public_subnet_id" {
+  value = join(",", concat(aws_subnet.public.*.id))
+}
 
- output "private_subnet_id" {
-   value = join(",", concat(aws_subnet.private.*.id))
- }
- 
-  output "private_subnet_id_for_ansible" {
-   value = aws_subnet.private.*.id[0]
- }
+output "private_subnet_id" {
+  value = join(",", concat(aws_subnet.private.*.id))
+}
 
-  output "target_group_arns" {
-    value = aws_alb_target_group.consul-server.arn
-  }
+output "private_subnet_id_for_ansible" {
+  value = aws_subnet.private.*.id[0]
+}
 
-  output "alb_security_group" {
-    value= aws_security_group.alb_sg.id
-  }
+output "target_group_arns" {
+  value = aws_alb_target_group.consul-server.arn
+}
 
-  output "data_ubuntu_ami_id" {
-    value= data.aws_ami.ubuntu.id
-  }
+output "alb_security_group" {
+  value = aws_security_group.alb_sg.id
+}
 
-  output "alb_dns"{
-    value = aws_alb.web-alb.dns_name
-  }
+output "data_ubuntu_ami_id" {
+  value = data.aws_ami.ubuntu.id
+}
+
+output "alb_dns" {
+  value = aws_alb.web-alb.dns_name
+}
