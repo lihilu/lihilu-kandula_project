@@ -1,8 +1,5 @@
 
-variable "purpose_tag" {
-  default = "kandula_project"
-  type    = string
-}
+variable "default_tags" {}
 
 variable "key_name" {
   type = string

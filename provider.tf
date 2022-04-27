@@ -61,7 +61,7 @@ provider "aws" {
   default_tags {
     tags = {
       owner   = "lihi reisman"
-      purpose = "kandula project"
+      purpose = "kandula_project"
       context = "opsschool"
     }
   }

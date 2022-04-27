@@ -38,7 +38,7 @@ resource "aws_instance" "bastion_host" {
   tags = {
     Name         = "bastion-host"
     bastion_host = "true"
-    join_consul  = "true"
+    purpose  = var.default_tags
   }
   
 }

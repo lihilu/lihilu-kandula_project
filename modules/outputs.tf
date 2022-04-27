@@ -28,11 +28,11 @@ output "security_group_db_id"{
  }
 
   output "target_group_arns" {
-    value = aws_lb_target_group.consul-server.arn
+    value = aws_alb_target_group.consul-server.arn
   }
 
-  output "lb_security_group" {
-    value= aws_security_group.lb_sg.id
+  output "alb_security_group" {
+    value= aws_security_group.alb_sg.id
   }
 
   output "data_ubuntu_ami_id" {
@@ -40,5 +40,5 @@ output "security_group_db_id"{
   }
 
   output "alb_dns"{
-    value = aws_lb.web-alb.dns_name
+    value = aws_alb.web-alb.dns_name
   }

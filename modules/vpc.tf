@@ -10,7 +10,7 @@ data "aws_availability_zones" "available" {
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr_block
   tags = {
-    "Name"             = "VPC - ${var.purpose_tag}"
+    "Name"             = "VPC - ${var.default_tags}"
   }
 }
 
@@ -24,7 +24,7 @@ resource "aws_subnet" "public" {
 
   tags = {
     "Name"                = "Public_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"             = var.purpose_tag
+    "purpose"             = var.default_tags
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_subnet" "private" {
 
   tags = {
     "Name"                = "Private_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"             = var.purpose_tag
+    "purpose"             = var.default_tags
   }
 }
 
@@ -47,7 +47,7 @@ resource "aws_internet_gateway" "igw" {
 
   tags = {
     "Name"                 = "IGW"
-    "purpose"              = var.purpose_tag
+    "purpose"              = var.default_tags
   }
 }
 
@@ -57,7 +57,7 @@ resource "aws_eip" "eip" {
 
   tags = {
     "Name"                 = "NAT_elastic_ip_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"              = var.purpose_tag
+    "purpose"              = var.default_tags
   }
 }
 
@@ -69,7 +69,7 @@ resource "aws_nat_gateway" "nat" {
 
   tags = {
     "Name"                  = "NAT_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
-    "purpose"               = var.purpose_tag
+    "purpose"               = var.default_tags
   }
 }
 
@@ -82,7 +82,7 @@ resource "aws_route_table" "route_tables" {
   vpc_id                    = aws_vpc.vpc.id
 
   tags = {
-    "Name"                  = "RTB_${var.route_tables_names[count.index]}_${var.purpose_tag}"
+    "Name"                  = "RTB_${var.route_tables_names[count.index]}"
   }
 }
 

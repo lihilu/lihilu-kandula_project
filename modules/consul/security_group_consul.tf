@@ -1,6 +1,6 @@
 
 resource "aws_security_group" "consul_security_group" {
-  name        = "test-consul-sg"
+  name        = "consul-sg"
   description = "Consul servers"
   vpc_id      = var.my_vpc_id
 }

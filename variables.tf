@@ -2,9 +2,10 @@ variable "aws_region" {
   default = "us-east-1"
   type    = string
 }
-# variable "vpc"{
-#   default = module.vpc
-# }
+ variable "default_tags"{
+   default ="kandula_project"
+   type    = string
+ }
 
 # variable "sg_pub_id" {
 #   default = module.sg_pub_id

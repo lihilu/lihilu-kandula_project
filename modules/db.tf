@@ -10,7 +10,7 @@ resource "aws_instance" "ec2_db" {
   vpc_security_group_ids      = [aws_security_group.DB_instnaces_access.id]
   tags = {
     "Name" = "DB - ${count.index}"
-    "purpose"             = var.purpose_tag
+    "purpose"             = var.default_tags
   }
 
 }

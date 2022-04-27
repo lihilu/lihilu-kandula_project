@@ -40,7 +40,8 @@ data "aws_iam_policy_document" "cluster_discovery" {
     actions = [
       "ec2:DescribeInstances",
       "autoscaling:CompleteLifecycleAction",
-      "ec2:DescribeTags"
+      "ec2:DescribeTags",
+      "ec2:Describe*"
     ]
     resources = ["*"]
   }

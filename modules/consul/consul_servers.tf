@@ -34,9 +34,19 @@ resource "aws_autoscaling_group" "consul_servers" {
       value               = "consul-server"
       propagate_at_launch = true
     },
+    {
+      key                 = "consul"
+      value               = "server"
+      propagate_at_launch = true
+    },
         {
       key                 = var.consul_join_tag_key
       value               = var.consul_join_tag_value
+      propagate_at_launch = true
+    },
+    {
+      key                 = "purpose"
+      value               = var.default_tags
       propagate_at_launch = true
     },
   ]
@@ -51,8 +61,8 @@ resource "aws_launch_configuration" "consul_servers" {
   image_id        = data.aws_ami.ubuntu_16_consul.id
   instance_type   = var.consul_instance_type
   key_name        = var.key_name
-  security_groups = [aws_security_group.consul_security_group.id,var.lb_security_group]
-  user_data       = local.consul_server-userdata
+  security_groups = [aws_security_group.consul_security_group.id,var.alb_security_group]
+  #user_data       = local.consul_server-userdata
   #associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name
   root_block_device {
@@ -89,6 +99,17 @@ resource "aws_autoscaling_group" "consul_clients" {
       value               = "consul-agent"
       propagate_at_launch = true
     },
+    {
+      key                 = "consul"
+      value               = "agent"
+      propagate_at_launch = true
+    },
+        {
+      key                 = "purpose"
+      value               = var.default_tags
+      propagate_at_launch = true
+    },
+  
   ]
 
   depends_on = [aws_autoscaling_group.consul_servers]
@@ -104,8 +125,8 @@ resource "aws_launch_configuration" "consul_clients" {
   image_id        = data.aws_ami.ubuntu_16_consul.id
   instance_type   = var.consul_instance_type
   key_name        = var.key_name
-  security_groups = [aws_security_group.consul_security_group.id,var.lb_security_group]
-  user_data = local.consul_agent-userdata
+  security_groups = [aws_security_group.consul_security_group.id,var.alb_security_group]
+  #user_data = local.consul_agent-userdata
   # associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name
   root_block_device {

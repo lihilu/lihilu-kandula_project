@@ -16,3 +16,6 @@ variable "private_subnet_id_for_ansible" {}
 
 variable "data_ubuntu_ami_id"{}
 
+variable "aws_iam_instance_profile_name"{}
+
+variable "default_tags" {}
