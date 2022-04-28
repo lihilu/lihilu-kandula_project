@@ -13,4 +13,19 @@ resource "aws_instance" "ansible_server" {
     "Name"    = "ansible-server"
     "purpose" = var.default_tags
   }
+
+    provisioner "file" {
+    source      = "~/Documents/GitHub/kandula_project/lihilu-kandula_project/project_instance_key.pem"
+    destination = "/tmp/"
+
+    connection {
+      user = "ubuntu"
+      private_key = "${file(var.key_local)}"
+      bastion_host = "${var.bastion_public_ip[0]}"
+      bastion_private_key = "${file(var.key_local)}"
+      agent = false
+      host = "${aws_instance.ansible_server[count.index].private_ip}"
+  }
+  }
 }
+

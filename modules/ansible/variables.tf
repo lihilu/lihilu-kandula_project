@@ -19,3 +19,7 @@ variable "data_ubuntu_ami_id" {}
 variable "aws_iam_instance_profile_name" {}
 
 variable "default_tags" {}
+
+variable "bastion_public_ip" {}
+
+variable "key_local" {}
