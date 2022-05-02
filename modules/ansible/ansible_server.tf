@@ -27,5 +27,19 @@ resource "aws_instance" "ansible_server" {
       host = "${aws_instance.ansible_server[count.index].private_ip}"
   }
   }
+      connection {
+      user = "ubuntu"
+      private_key = "${file(var.key_local)}"
+      bastion_host = "${var.bastion_public_ip[0]}"
+      bastion_private_key = "${file(var.key_local)}"
+      agent = false
+      host = "${aws_instance.ansible_server[count.index].private_ip}"
+  }
+    provisioner "remote-exec" {
+    inline = [
+      "sudo cp /tmp/tmp ~/.ssh/project_instance_key.pem",
+      "sudo chown ubuntu:ubuntu ~/.ssh/project_instance_key.pem",
+      "sudo chmod 400 ~/.ssh/project_instance_key.pem",
+    ]
+  }
 }
-

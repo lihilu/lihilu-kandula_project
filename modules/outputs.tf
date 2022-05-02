@@ -42,3 +42,7 @@ output "data_ubuntu_ami_id" {
 output "alb_dns" {
   value = aws_alb.web-alb.dns_name
 }
+
+output "private_subnet_ids_list" {
+  value = aws_subnet.private.*.id
+}
