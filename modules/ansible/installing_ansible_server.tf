@@ -16,10 +16,10 @@ pip install boto3
 ansible-galaxy collection install amazon.aws
 sudo usermod -aG sudo ubuntu
 
-git clone https://github.com/lihilu/kandula_ansible.git /home/ubuntu/kandula_project/
+git clone https://github.com/lihilu/kandula_ansible.git /home/ubuntu/kandula_project/ && echo "cloned"
+sleep 1m
 
 sudo mv /home/ubuntu/kandula_project/ansible/ansible.cfg /etc/ansible/ansible.cfg
-sleep 3m
-ansible-playbook ~/kandula_project/ansible/playbook_consul.yml
+ansible-playbook -i /home/ubuntu/kandula_project/ansible/inventory_aws_ec2.yml /home/ubuntu/kandula_project/ansible/playbook_consul.yml
 USERDATA
 }

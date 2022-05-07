@@ -2,7 +2,7 @@
 module "instance" {
   source                   = "./modules/"
   consul_security_group_id = module.consul_cluster.consul_security_group_id
-  #  bastion_private_ip = module.instance.bastion_private_ip
+  jenkins_server_id = module.jenkins.jenkins_server_id
   #   aws_vpc =  var.vpc
   #   sg_pub_id = var.sg_pub_id
   key_name     = module.ssh-key.key_name
@@ -37,6 +37,18 @@ module "eks_cluster"{
   my_vpc_id = module.instance.my_vpc_id
   private_subnet_ids_list   = module.instance.private_subnet_ids_list
   default_tags                  = var.default_tags
+}
+
+module "jenkins" {
+  source                        = "./modules/jenkins"
+  key_name= module.ssh-key.key_name
+  my_vpc_id = module.instance.my_vpc_id
+  default_tags                  = var.default_tags
+  subnet_id       = module.instance.private_subnet_ids_list
+  sg_all_worker_managment_id = module.eks_cluster.sg_all_worker_managment_id
+  consul_security_group_id = module.consul_cluster.consul_security_group_id
+  aws_security_group_common_id = module.instance.aws_security_group_common_id
+  alb_security_group = module.instance.alb_security_group
 }
 
 module "ssh-key" {

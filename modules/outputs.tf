@@ -46,3 +46,7 @@ output "alb_dns" {
 output "private_subnet_ids_list" {
   value = aws_subnet.private.*.id
 }
+
+output "aws_security_group_common_id" {
+  value = aws_security_group.common_sg.id
+}

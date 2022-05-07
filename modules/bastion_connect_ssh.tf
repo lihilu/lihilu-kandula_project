@@ -2,6 +2,7 @@
 locals {
   bastion_connect_ssh = <<USERDATA
 #!/bin/bash
+sudo hostnamectl set-hostname bastion
 eval "$(ssh-agent -s)"
 ssh-add project_instance_key.pem
 PUBLIC_IP=$(curl https://ipecho.net/plain ; echo)
