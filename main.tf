@@ -3,8 +3,6 @@ module "instance" {
   source                   = "./modules/"
   consul_security_group_id = module.consul_cluster.consul_security_group_id
   jenkins_server_id = module.jenkins.jenkins_server_id
-  #   aws_vpc =  var.vpc
-  #   sg_pub_id = var.sg_pub_id
   key_name     = module.ssh-key.key_name
   default_tags = var.default_tags
 }
@@ -29,7 +27,6 @@ module "ansible_server" {
   bastion_public_ip             = module.instance.bastion_public_ip
   default_tags                  = var.default_tags
   key_local                     = module.ssh-key.key_local
-  # ansible_server_private_ip = module.ansible_server.ansible_server_private_ip
 }
 
 module "eks_cluster"{
