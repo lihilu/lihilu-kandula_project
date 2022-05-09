@@ -28,15 +28,15 @@ resource "aws_iam_policy" "jenkins" {
 
 data "aws_iam_policy_document" "jenkins_policy" {
   statement {
-      effect = "Allow"
-      actions = [
-          "ec2:DescribeInstances",
-          "s3:GetObject",
-          "s3:PutObject",
-          "s3:ListBucket"
-      ]
-      resources = ["*"]     
-    }
+    effect = "Allow"
+    actions = [
+      "ec2:DescribeInstances",
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket"
+    ]
+    resources = ["*"]
+  }
 }
 
 # Attach the policy
@@ -66,17 +66,17 @@ resource "aws_iam_policy" "jenkins_agents" {
 
 data "aws_iam_policy_document" "jenkins_agent_policy" {
   statement {
-      effect = "Allow"
-      actions = [
-        "eks:AccessKubernetesApi",
-        "eks:DescribeCluster",
-        "eks:DescribeIdentityProviderConfig",
-        "eks:DescribeNodegroup",
-        "eks:ListClusters",
-        "eks:ListNodegroups",
-        "acm:ListCertificates"
-      ]
-      resources = ["*"]
+    effect = "Allow"
+    actions = [
+      "eks:AccessKubernetesApi",
+      "eks:DescribeCluster",
+      "eks:DescribeIdentityProviderConfig",
+      "eks:DescribeNodegroup",
+      "eks:ListClusters",
+      "eks:ListNodegroups",
+      "acm:ListCertificates"
+    ]
+    resources = ["*"]
   }
 }
 resource "aws_iam_policy_attachment" "jenkins_agents" {

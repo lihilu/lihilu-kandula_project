@@ -184,7 +184,7 @@ exit 0
 USERDATA
 
 
- consul_agent_userdata_hostname = <<USERDATA
+  consul_agent_userdata_hostname = <<USERDATA
 #!/usr/bin/env bash
 set -e
 

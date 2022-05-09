@@ -131,7 +131,7 @@ resource "aws_launch_configuration" "consul_clients" {
   instance_type   = var.consul_instance_type
   key_name        = var.key_name
   security_groups = [aws_security_group.consul_security_group.id, var.alb_security_group]
-  user_data = local.consul_agent_userdata_hostname
+  user_data       = local.consul_agent_userdata_hostname
   # associate_public_ip_address = var.public_ip
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
   root_block_device {

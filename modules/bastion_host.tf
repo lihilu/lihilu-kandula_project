@@ -39,8 +39,8 @@ resource "aws_instance" "bastion_host" {
     Name         = "bastion-host"
     bastion_host = "true"
     purpose      = var.default_tags
-    consul = "agent"
-    consul_join = var.consul_join_tag_value
+    consul       = "agent"
+    consul_join  = var.consul_join_tag_value
   }
 
 }

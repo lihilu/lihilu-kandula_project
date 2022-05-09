@@ -61,7 +61,7 @@ variable "destination_cidr_block" {
 }
 
 variable "consul_security_group_id" {}
-variable "jenkins_server_id"{}
+variable "jenkins_server_id" {}
 
 variable "consul_join_tag_key" {}
 variable "consul_join_tag_value" {}

@@ -16,16 +16,16 @@ resource "aws_security_group" "alb_sg" {
   vpc_id = aws_vpc.vpc.id
   ## Incoming roles
   ingress {
-    from_port = 8500
-    to_port =  8500
-    protocol = "tcp"
+    from_port   = 8500
+    to_port     = 8500
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "Allow consul UI access"
   }
   ingress {
-    from_port = 8080
-    to_port =  8080
-    protocol = "tcp"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "Allow jenkins UI access"
   }

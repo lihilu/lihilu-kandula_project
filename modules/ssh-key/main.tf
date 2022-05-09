@@ -9,6 +9,6 @@ resource "aws_key_pair" "project_instance_key" {
 }
 # Save generated key pair locally
 resource "local_file" "server_key" {
-  sensitive_content  = tls_private_key.project_instance_key.private_key_pem
-  filename           = "project_instance_key.pem"
+  sensitive_content = tls_private_key.project_instance_key.private_key_pem
+  filename          = "project_instance_key.pem"
 }

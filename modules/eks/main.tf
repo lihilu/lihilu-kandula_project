@@ -29,34 +29,33 @@ module "eks" {
   version         = "18.6.1"
   cluster_name    = local.cluster_name
   cluster_version = var.cluster_version
-  subnet_ids     = var.private_subnet_ids_list
+  subnet_ids      = var.private_subnet_ids_list
 
   vpc_id = var.my_vpc_id
 
   tags = {
-    purpose = var.default_tags
-    GithubRepo  = "terraform-aws-eks"
-    GithubOrg   = "terraform-aws-modules"
+    purpose    = var.default_tags
+    GithubRepo = "terraform-aws-eks"
+    GithubOrg  = "terraform-aws-modules"
 
   }
 
   eks_managed_node_groups = {
-    
+
     group_1 = {
-      min_size     = 2
-      max_size     = 6
-      desired_size = 2
+      min_size       = 2
+      max_size       = 6
+      desired_size   = 2
       instance_types = ["t2.micro"]
       tags = {
-          purpose = var.default_tags,
-          consul = "agent"
+        purpose = var.default_tags
       }
     }
 
     group_2 = {
-      min_size     = 2
-      max_size     = 6
-      desired_size = 2
+      min_size       = 2
+      max_size       = 6
+      desired_size   = 2
       instance_types = ["t2.micro"]
 
     }

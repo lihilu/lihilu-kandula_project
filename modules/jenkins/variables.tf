@@ -1,17 +1,17 @@
 variable "ami_name_filter" {
-   description = "Filter to use to find the AMI by name"
-   default = "jenkins_server_image"
+  description = "Filter to use to find the AMI by name"
+  default     = "jenkins_server_image"
 }
 
 variable "ami_name_filter_agent" {
-   description = "Filter to use to find the AMI by name"
-   default = "jenkins_agent_image"
+  description = "Filter to use to find the AMI by name"
+  default     = "jenkins_agent_image"
 }
 
 
 variable "ami_owner" {
-   description = "Filter for the AMI owner"
-   default = "314452776120"
+  description = "Filter for the AMI owner"
+  default     = "314452776120"
 }
 
 variable "key_name" {}
@@ -28,5 +28,5 @@ variable "consul_join_tag_value" {}
 
 variable "private_public_concat_subnet_cidrs" {
   description = "CIDR ranges for private subnets"
-  default     = ["10.0.11.0/24", "10.0.12.0/24","10.0.1.0/24", "10.0.2.0/24"]
+  default     = ["10.0.11.0/24", "10.0.12.0/24", "10.0.1.0/24", "10.0.2.0/24"]
 }

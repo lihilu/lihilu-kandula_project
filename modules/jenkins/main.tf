@@ -1,38 +1,38 @@
 data "aws_ami" "jenkins_server_ami" {
- most_recent      = true
- owners           = ["${var.ami_owner}"]
- 
- filter {
-   name   = "name"
-   values = ["${var.ami_name_filter}*"]
- }
- filter {
-   name   = "root-device-type"
-   values = ["ebs"]
- }
- filter {
-   name   = "virtualization-type"
-   values = ["hvm"]
- }
+  most_recent = true
+  owners      = ["${var.ami_owner}"]
+
+  filter {
+    name   = "name"
+    values = ["${var.ami_name_filter}*"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 
 data "aws_ami" "jenkins_agent_ami" {
- most_recent      = true
- owners           = ["${var.ami_owner}"]
- 
- filter {
-   name   = "name"
-   values = ["${var.ami_name_filter_agent}*"]
- }
- filter {
-   name   = "root-device-type"
-   values = ["ebs"]
- }
- filter {
-   name   = "virtualization-type"
-   values = ["hvm"]
- }
+  most_recent = true
+  owners      = ["${var.ami_owner}"]
+
+  filter {
+    name   = "name"
+    values = ["${var.ami_name_filter_agent}*"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 resource "aws_instance" "jenkins_server" {
   ami                         = data.aws_ami.jenkins_server_ami.id
@@ -41,7 +41,7 @@ resource "aws_instance" "jenkins_server" {
   iam_instance_profile        = aws_iam_instance_profile.jenkins.name
   subnet_id                   = var.subnet_id[0]
   associate_public_ip_address = false
-  user_data= local.jenkins_server_userdata
+  user_data                   = local.jenkins_server_userdata
 
   vpc_security_group_ids = [
     var.aws_security_group_common_id,
@@ -57,11 +57,11 @@ resource "aws_instance" "jenkins_server" {
   }
 
   tags = {
-    Name                = "jenkins_server"
-    jenkins_server      = "true"
+    Name           = "jenkins_server"
+    jenkins_server = "true"
     #is_service_instance = "true"
     consul_join = var.consul_join_tag_value
-    consul = "agent"
+    consul      = "agent"
   }
 }
 
@@ -89,10 +89,10 @@ resource "aws_instance" "jenkins_agent" {
   }
 
   tags = {
-    Name                = "jenkins-agent"
-    jenkins_server      = "true"
+    Name           = "jenkins_agent"
+    jenkins_server = "true"
     #is_service_instance = "true"
     consul_join = var.consul_join_tag_value
-    consul = "agent"
+    consul      = "agent"
   }
 }
