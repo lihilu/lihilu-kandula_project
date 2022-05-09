@@ -5,6 +5,8 @@ module "instance" {
   jenkins_server_id = module.jenkins.jenkins_server_id
   key_name     = module.ssh-key.key_name
   default_tags = var.default_tags
+  consul_join_tag_key           =var.consul_join_tag_key
+  consul_join_tag_value         = var.consul_join_tag_value
 }
 
 module "consul_cluster" {
@@ -15,6 +17,8 @@ module "consul_cluster" {
   private_subnet_id  = module.instance.private_subnet_id
   alb_security_group = module.instance.alb_security_group
   default_tags       = var.default_tags
+  consul_join_tag_key           =var.consul_join_tag_key
+  consul_join_tag_value         = var.consul_join_tag_value
 }
 
 module "ansible_server" {
@@ -46,6 +50,8 @@ module "jenkins" {
   consul_security_group_id = module.consul_cluster.consul_security_group_id
   aws_security_group_common_id = module.instance.aws_security_group_common_id
   alb_security_group = module.instance.alb_security_group
+  consul_join_tag_key           =var.consul_join_tag_key
+  consul_join_tag_value         = var.consul_join_tag_value
 }
 
 module "ssh-key" {

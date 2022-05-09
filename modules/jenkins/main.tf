@@ -41,6 +41,7 @@ resource "aws_instance" "jenkins_server" {
   iam_instance_profile        = aws_iam_instance_profile.jenkins.name
   subnet_id                   = var.subnet_id[0]
   associate_public_ip_address = false
+  user_data= local.jenkins_server_userdata
 
   vpc_security_group_ids = [
     var.aws_security_group_common_id,
@@ -56,9 +57,11 @@ resource "aws_instance" "jenkins_server" {
   }
 
   tags = {
-    Name                = "jenkins-server"
+    Name                = "jenkins_server"
     jenkins_server      = "true"
-    is_service_instance = "true"
+    #is_service_instance = "true"
+    consul_join = var.consul_join_tag_value
+    consul = "agent"
   }
 }
 
@@ -70,6 +73,7 @@ resource "aws_instance" "jenkins_agent" {
   iam_instance_profile        = aws_iam_instance_profile.jenkins.name
   subnet_id                   = var.subnet_id[1]
   associate_public_ip_address = false
+  user_data                   = local.jenkins_agent_userdata
 
   vpc_security_group_ids = [
     var.aws_security_group_common_id,
@@ -87,6 +91,8 @@ resource "aws_instance" "jenkins_agent" {
   tags = {
     Name                = "jenkins-agent"
     jenkins_server      = "true"
-    is_service_instance = "true"
+    #is_service_instance = "true"
+    consul_join = var.consul_join_tag_value
+    consul = "agent"
   }
 }

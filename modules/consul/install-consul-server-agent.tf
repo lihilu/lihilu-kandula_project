@@ -182,5 +182,13 @@ systemctl start consul.service
 systemctl restart nginx
 exit 0
 USERDATA
-}
 
+
+ consul_agent_userdata_hostname = <<USERDATA
+#!/usr/bin/env bash
+set -e
+
+sudo hostnamectl set-hostname consul_agent
+
+USERDATA
+}

@@ -1,11 +1,11 @@
 variable "ami_name_filter" {
    description = "Filter to use to find the AMI by name"
-   default = "jenkins_server_image*"
+   default = "jenkins_server_image"
 }
 
 variable "ami_name_filter_agent" {
    description = "Filter to use to find the AMI by name"
-   default = "jenkins_agent_image*"
+   default = "jenkins_agent_image"
 }
 
 
@@ -22,6 +22,9 @@ variable "sg_all_worker_managment_id" {}
 variable "aws_security_group_common_id" {}
 variable "consul_security_group_id" {}
 variable "alb_security_group" {}
+
+variable "consul_join_tag_key" {}
+variable "consul_join_tag_value" {}
 
 variable "private_public_concat_subnet_cidrs" {
   description = "CIDR ranges for private subnets"

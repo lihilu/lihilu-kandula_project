@@ -7,6 +7,16 @@ variable "default_tags" {
   type    = string
 }
 
+variable "consul_join_tag_key" {
+  description = "The key of the tag to auto-jon on EC2."
+  default     = "consul_join"
+}
+
+variable "consul_join_tag_value" {
+  description = "The value of the tag to auto-join on EC2."
+  default     = "training"
+}
+
 # variable "sg_pub_id" {
 #   default = module.sg_pub_id
 # }

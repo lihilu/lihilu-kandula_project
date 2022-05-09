@@ -48,7 +48,8 @@ module "eks" {
       desired_size = 2
       instance_types = ["t2.micro"]
       tags = {
-          purpose = var.default_tags
+          purpose = var.default_tags,
+          consul = "agent"
       }
     }
 

@@ -41,14 +41,14 @@ data "aws_iam_policy_document" "jenkins_policy" {
 
 # Attach the policy
 resource "aws_iam_policy_attachment" "jenkins" {
-  name       = format("%s-jenkins", var.default_tags)
+  name       = format("jenkins-%s", var.default_tags)
   roles      = [aws_iam_role.jenkins.name]
   policy_arn = aws_iam_policy.jenkins.arn
 }
 
 # Create the instance profile
 resource "aws_iam_instance_profile" "jenkins" {
-  name = format("%s-jenkins", var.default_tags)
+  name = format("jenkins-%s", var.default_tags)
   role = aws_iam_role.jenkins.name
 }
 
@@ -80,12 +80,12 @@ data "aws_iam_policy_document" "jenkins_agent_policy" {
   }
 }
 resource "aws_iam_policy_attachment" "jenkins_agents" {
-  name       = format("%s-jenkins-agents", var.default_tags)
+  name       = format("jenkins-agents-%s", var.default_tags)
   roles      = [aws_iam_role.jenkins_agents.name]
   policy_arn = aws_iam_policy.jenkins_agents.arn
 }
 
 resource "aws_iam_instance_profile" "jenkins_agents" {
-  name = format("%s-jenkins-agents", var.default_tags)
+  name = format("jenkins-agents-%s", var.default_tags)
   role = aws_iam_role.jenkins_agents.name
 }
