@@ -1,0 +1,12 @@
+dependency-injector
+flask
+bootstrap-flask
+pygithub
+pyyaml
+docker
+BeautifulSoup4
+moto
+json-logging
+flake8
+flake8-colors
+yamllint

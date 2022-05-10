@@ -36,7 +36,7 @@ data "aws_ami" "jenkins_agent_ami" {
 }
 resource "aws_instance" "jenkins_server" {
   ami                         = data.aws_ami.jenkins_server_ami.id
-  instance_type               = "t2.micro"
+  instance_type               = "t2.medium"
   key_name                    = var.key_name
   iam_instance_profile        = aws_iam_instance_profile.jenkins.name
   subnet_id                   = var.subnet_id[0]
@@ -58,7 +58,7 @@ resource "aws_instance" "jenkins_server" {
 
   tags = {
     Name           = "jenkins_server"
-    jenkins_server = "true"
+    jenkins = "server"
     #is_service_instance = "true"
     consul_join = var.consul_join_tag_value
     consul      = "agent"
@@ -68,7 +68,8 @@ resource "aws_instance" "jenkins_server" {
 
 resource "aws_instance" "jenkins_agent" {
   ami                         = data.aws_ami.jenkins_agent_ami.id
-  instance_type               = "t2.micro"
+  count                       = var.num_of_jenkins_agent
+  instance_type               = "t2.medium"
   key_name                    = var.key_name
   iam_instance_profile        = aws_iam_instance_profile.jenkins.name
   subnet_id                   = var.subnet_id[1]
@@ -89,8 +90,8 @@ resource "aws_instance" "jenkins_agent" {
   }
 
   tags = {
-    Name           = "jenkins_agent"
-    jenkins_server = "true"
+    Name           = "jenkins_agent-${count.index}"
+    jenkins = "agent"
     #is_service_instance = "true"
     consul_join = var.consul_join_tag_value
     consul      = "agent"

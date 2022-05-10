@@ -14,6 +14,10 @@ variable "ami_owner" {
   default     = "314452776120"
 }
 
+variable "num_of_jenkins_agent"{
+  default = "2"
+}
+
 variable "key_name" {}
 variable "default_tags" {}
 variable "my_vpc_id" {}
