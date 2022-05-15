@@ -19,3 +19,13 @@ output "ansible_server_private_ip" {
   value       = module.ansible_server.ansible_server_private_ip
   description = "ansible private ip"
 }
+
+output "jenkins_server_ip" {
+  value       = module.jenkins.jenkins_server_ip
+  description = "jenkins server ip"
+}
+
+output "jenkins_agent_ips" {
+  value       = module.jenkins.jenkins_agent_ips
+  description = "bastion agent ips"
+}
