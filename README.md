@@ -57,7 +57,7 @@ Load-Balancer-URL:8080
 
 ## Kandula app
 
-GIF KANDULA
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/kandulaonkube.gif)
 
 # Known Issue
 * Jenkins job running without build num so before re-running the job please run the following command
