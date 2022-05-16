@@ -23,7 +23,7 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    "Name"    = "Public_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
+    "Name"    = "public_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
     "purpose" = var.default_tags
   }
 }
@@ -36,7 +36,7 @@ resource "aws_subnet" "private" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    "Name"    = "Private_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
+    "Name"    = "private_subnet_${regex(".$", data.aws_availability_zones.available.names[count.index])}"
     "purpose" = var.default_tags
   }
 }
