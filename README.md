@@ -48,12 +48,12 @@ Host 10.0.*.*
 ## Consul
 Load-Balancer-URL:8500
 
-Gif Consul
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/consul.gif)
 
 ## jenkins
 Load-Balancer-URL:8080
 
-Gif Jenkins run job: mid project kandula opsschool
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/jenkins.gif)
 
 ## Kandula app
 
