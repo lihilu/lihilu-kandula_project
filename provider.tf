@@ -27,11 +27,11 @@ terraform {
     #   version = "~> 2.2.0"
     # }
   }
-  # backend "s3" {
-  #   bucket = "lihi-opsschool-mid-project-state"
-  #   key    = "mid_project_state/mid_project.tfstate"
-  #   region = "us-east-1"
-  # }
+   backend "s3" {
+     bucket = "lihi-opsschool-mid-project-state"
+     key    = "mid_project_state/mid_project.tfstate"
+     region = "us-east-1"
+   }
 }
 
 resource "aws_s3_bucket" "terraform_state" {

@@ -100,12 +100,14 @@ echo "Configuring dnsmasq..."
 cat << EODMCF >/etc/dnsmasq.d/10-consul
 # Enable forward lookup of the 'consul' domain:
 server=/consul/127.0.0.1#8600
+
 EODMCF
 systemctl restart dnsmasq
 cat << EOF >/etc/systemd/resolved.conf
 [Resolve]
 DNS=127.0.0.1
 Domains=~consul
+
 EOF
 systemctl restart systemd-resolved.service
 echo "Fetching Consul..."

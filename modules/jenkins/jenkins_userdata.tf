@@ -14,9 +14,7 @@ USERDATA
 jenkins_agent_userdata = <<USERDATA
 #!/usr/bin/env bash
 set -e
-PRIVATE_IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
-sudo hostnamectl set-hostname jenkins_agent_$PRIVATE_IP
-sudo apt-get update -y
+sudo hostnamectl set-hostname jenkins_agent
 sudo apt install docker.io -y
 sudo systemctl start docker
 sudo systemctl enable docker

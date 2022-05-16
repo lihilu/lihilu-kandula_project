@@ -72,7 +72,7 @@ resource "aws_instance" "jenkins_agent" {
   instance_type               = "t2.medium"
   key_name                    = var.key_name
   iam_instance_profile        = aws_iam_instance_profile.jenkins.name
-  subnet_id                   = var.subnet_id[1]
+  subnet_id                   = var.subnet_id[count.index]
   associate_public_ip_address = false
   user_data                   = local.jenkins_agent_userdata
 

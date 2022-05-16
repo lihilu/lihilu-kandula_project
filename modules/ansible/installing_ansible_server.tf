@@ -15,6 +15,8 @@ apt-get -y install python3-pip
 pip install boto3
 ansible-galaxy collection install amazon.aws
 sudo usermod -aG sudo ubuntu
+sleep 9m
+
 
 git clone https://github.com/lihilu/kandula_ansible.git /home/ubuntu/kandula_project/ && echo "cloned"
 sleep 1m

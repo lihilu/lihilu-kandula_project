@@ -3,13 +3,13 @@ resource "aws_security_group" "jenkins_sg" {
   name   = "jenkins_sg"
   vpc_id = var.my_vpc_id
   ## Incoming roles
-  #   ingress {
-  #     from_port   = 0
-  #     to_port     = 0
-  #     protocol    = "-1"
-  #     self        = true
-  #     description = "Allow all inside security group"
-  #   }
+     ingress {
+       from_port   = 0
+       to_port     = 0
+       protocol    = "-1"
+       self        = true
+       description = "Allow all inside security group"
+     }
   ingress {
     from_port   = 22
     to_port     = 22
