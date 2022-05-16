@@ -33,25 +33,25 @@ kubectl apply -f "C:\Users\<USER>\Desktop\importent not delete\kube\secret.yaml"
 Host bastion
     HostName <BASTION PUBLIC IP>
     User ubuntu
-    IdentityFile C:\Users\LihiZohara\Documents\GitHub\kandula_project\lihilu-kandula_project\project_instance_key.pem
+    IdentityFile C:\Users\<USERNAME>\Documents\GitHub\kandula_project\lihilu-kandula_project\project_instance_key.pem
     Port 22
     ForwardAgent yes
 
 Host 10.0.*.*
     User ubuntu
-    IdentityFile C:\Users\LihiZohara\Documents\GitHub\kandula_project\lihilu-kandula_project/project_instance_key.pem
+    IdentityFile C:\Users\<USERNAME>\Documents\GitHub\kandula_project\lihilu-kandula_project/project_instance_key.pem
     ProxyJump bastion
     StrictHostKeyChecking no
     ProxyCommand ssh bastion -W %h:%p
 ```
 
 ## Consul
-<Load-Balancer-URL>:8500
+Load-Balancer-URL:8500
 
 Gif Consul
 
 ## jenkins
-<Load-Balancer-URL>:8080
+Load-Balancer-URL:8080
 
 Gif Jenkins run job: mid project kandula opsschool
 
