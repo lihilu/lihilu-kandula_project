@@ -14,10 +14,10 @@ USERDATA
 jenkins_agent_userdata = <<USERDATA
 #!/usr/bin/env bash
 set -e
-sudo hostnamectl set-hostname jenkins_agent
+#sudo hostnamectl set-hostname jenkins_agent
 sudo apt install docker.io -y
-sudo systemctl start docker
-sudo systemctl enable docker
+# sudo systemctl start docker
+# sudo systemctl enable docker
 sudo usermod -aG docker ubuntu
 mkdir -p ${local.jenkins_home}
 sudo chown -R 1000:1000 ${local.jenkins_home}
