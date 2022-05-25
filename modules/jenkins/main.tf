@@ -58,10 +58,9 @@ resource "aws_instance" "jenkins_server" {
 
   tags = {
     Name           = "jenkins_server"
-    jenkins = "server"
-    #is_service_instance = "true"
-    consul_join = var.consul_join_tag_value
-    consul      = "agent"
+    jenkins        = "server"
+    consul_join   = var.consul_join_tag_value
+    consul          = "agent"
   }
 }
 
@@ -92,7 +91,6 @@ resource "aws_instance" "jenkins_agent" {
   tags = {
     Name           = "jenkins_agent-${count.index}"
     jenkins = "agent"
-    #is_service_instance = "true"
     consul_join = var.consul_join_tag_value
     consul      = "agent"
   }

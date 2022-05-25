@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "jenkins_policy" {
       "ec2:DescribeInstances",
       "s3:GetObject",
       "s3:PutObject",
-      "eks:DescribeCluster",
+      "eks:*",
       "s3:ListBucket"
     ]
     resources = ["*"]
