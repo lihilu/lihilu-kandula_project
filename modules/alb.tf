@@ -15,6 +15,13 @@ resource "aws_security_group" "alb_sg" {
   name   = "alb-security-group"
   vpc_id = aws_vpc.vpc.id
   ## Incoming roles
+    ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow 443 certificate access"
+  }
   ingress {
     from_port   = 8500
     to_port     = 8500
@@ -68,14 +75,6 @@ resource "aws_alb_target_group" "consul-server" {
   }
 }
 
-
-# resource "aws_alb_target_group_attachment" "web_server" {
-#   count            = length(aws_instance.ec2_db)
-#   target_group_arn = aws_alb_target_group.consul-server.id
-#   target_id        = aws_instance.ec2_db.*.id[count.index]
-#   port             = 80
-# }
-
 resource "aws_alb_listener" "jenkins_listener" {
   load_balancer_arn = aws_alb.web-alb.arn
   port              = 8080
@@ -118,15 +117,17 @@ resource "aws_alb_target_group_attachment" "jenkins_server" {
 
 
 
-# resource "aws_alb_listener" "jenkins_https_alb" {
-#   load_balancer_arn = aws_lb.jenkins_alb.arn
-#   port              = "443"
-#   protocol          = "HTTPS"
-#   ssl_policy        = "ELBSecurityPolicy-2016-08"
-#   certificate_arn   = aws_acm_certificate.kandula_tls.arn
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.jenkins_alb.arn
-#   }
-# }
+resource "aws_alb_listener" "jenkins_https_alb" {
+   load_balancer_arn = aws_alb.web-alb.arn
+   port              = "443"
+   protocol          = "HTTPS"
+   ssl_policy        = "ELBSecurityPolicy-2016-08"
+   certificate_arn   = aws_acm_certificate.kandula_tls.arn
+   default_action {
+     type             = "forward"
+     target_group_arn = aws_alb_target_group.jenkins_server.arn
+   }
+ }
+
+
 

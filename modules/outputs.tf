@@ -50,3 +50,7 @@ output "private_subnet_ids_list" {
 output "aws_security_group_common_id" {
   value = aws_security_group.common_sg.id
 }
+
+output "finalproject_tls_arn" {
+  value = aws_acm_certificate.kandula_tls.arn
+}
