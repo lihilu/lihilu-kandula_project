@@ -7,9 +7,9 @@ output "bastion_private_ip" {
   value = aws_instance.bastion_host.*.private_ip
 }
 
-output "security_group_db_id" {
-  value = aws_security_group.DB_instnaces_access.id
-}
+ output "security_group_db_id" {
+    value = aws_security_group.DB_instnaces_access.id
+ }
 
 output "my_vpc_id" {
   value = aws_vpc.vpc.id

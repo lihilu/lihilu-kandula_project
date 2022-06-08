@@ -34,3 +34,13 @@ output "finalproject_tls_arn"{
   value = module.instance.finalproject_tls_arn
   description = "arn for kubernetes yaml file"
 }
+
+output "certificate_id" {
+  value = "${split("/",module.instance.finalproject_tls_arn)[1]}"
+  description = "Certificate id for kubernetes yaml file"
+}
+
+output "db_endpoint" {
+  value = module.db.db_endpoint
+  description = "Database endpoint"
+}

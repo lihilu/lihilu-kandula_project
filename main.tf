@@ -9,6 +9,14 @@ module "instance" {
   consul_join_tag_value    = var.consul_join_tag_value
 }
 
+module "db" {
+  source                        = "./modules/db"
+  my_vpc_id             = module.instance.my_vpc_id
+  private_subnet_id = module.instance.private_subnet_ids_list
+  source_security_group_id_common = module.instance.aws_security_group_common_id
+  source_security_group_id_kube = module.eks_cluster.sg_all_worker_managment_id
+}
+
 module "consul_cluster" {
   source                = "./modules/consul"
   my_vpc_id             = module.instance.my_vpc_id
@@ -19,6 +27,7 @@ module "consul_cluster" {
   default_tags          = var.default_tags
   consul_join_tag_key   = var.consul_join_tag_key
   consul_join_tag_value = var.consul_join_tag_value
+  ansible_server_private_ip = module.ansible_server.ansible_server_private_ip[0]
 }
 
 module "ansible_server" {
