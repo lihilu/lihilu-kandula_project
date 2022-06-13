@@ -3,6 +3,7 @@ module "instance" {
   source                   = "./modules/"
   consul_security_group_id = module.consul_cluster.consul_security_group_id
   jenkins_server_id        = module.jenkins.jenkins_server_id
+  monitor_server_id       = module.monitor_system.monitor_server_id
   key_name                 = module.ssh-key.key_name
   default_tags             = var.default_tags
   consul_join_tag_key      = var.consul_join_tag_key
@@ -15,6 +16,9 @@ module "db" {
   private_subnet_id = module.instance.private_subnet_ids_list
   source_security_group_id_common = module.instance.aws_security_group_common_id
   source_security_group_id_kube = module.eks_cluster.sg_all_worker_managment_id
+ # default_tags          = var.default_tags
+  consul_join_tag_key   = var.consul_join_tag_key
+  consul_join_tag_value = var.consul_join_tag_value
 }
 
 module "consul_cluster" {
@@ -60,6 +64,21 @@ module "jenkins" {
   aws_security_group_common_id = module.instance.aws_security_group_common_id
   alb_security_group           = module.instance.alb_security_group
   consul_join_tag_key          = var.consul_join_tag_key
+  consul_join_tag_value        = var.consul_join_tag_value
+}
+
+module "monitor_system"{
+  source                       ="./modules/monitor"
+  # data_ubuntu_ami_id            = module.instance.data_ubuntu_ami_id
+  private_subnet_ids_list = module.instance.private_subnet_ids_list
+  my_vpc_id               = module.instance.my_vpc_id
+  key_name                      = module.ssh-key.key_name
+  sg_all_worker_managment_id   = module.eks_cluster.sg_all_worker_managment_id
+  consul_security_group_id     = module.consul_cluster.consul_security_group_id
+  aws_security_group_common_id = module.instance.aws_security_group_common_id
+  alb_security_group           = module.instance.alb_security_group
+  default_tags            = var.default_tags
+    consul_join_tag_key          = var.consul_join_tag_key
   consul_join_tag_value        = var.consul_join_tag_value
 }
 

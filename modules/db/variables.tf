@@ -53,4 +53,7 @@ variable "private_subnet_id"{}
 variable "my_vpc_id" {}
 variable "source_security_group_id_common" {}
 variable "source_security_group_id_kube" {}
+variable "consul_join_tag_key" {}
+variable "consul_join_tag_value" {}
+
 

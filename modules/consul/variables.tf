@@ -36,3 +36,15 @@ variable "private_subnet_id" {}
 variable "alb_security_group" {}
 
 variable "default_tags" {}
+
+variable "ami_name_filter_consul" {
+  description = "Filter to use to find the AMI by name"
+  default     = "consul_server"
+}
+
+variable "ami_owner" {
+  description = "Filter for the AMI owner"
+  default     = "314452776120"
+}
+
+variable "ansible_server_private_ip"{}

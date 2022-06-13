@@ -14,3 +14,7 @@ output "jenkins_server_ip" {
 output "jenkins_agent_ips"{
   value = join(", ",concat(aws_instance.jenkins_agent.*.private_ip))
 }
+
+output "jenkins_agent_ip"{
+  value = aws_instance.jenkins_agent[0].private_ip
+}

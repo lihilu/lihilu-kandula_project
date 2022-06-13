@@ -36,6 +36,20 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
     description = "Allow jenkins UI access"
   }
+   ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow monitor UI access"
+  }
+   ingress {
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow monitor UI access"
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -131,3 +145,84 @@ resource "aws_alb_listener" "jenkins_https_alb" {
 
 
 
+resource "aws_alb_listener" "monitor_grafana_listener" {
+  load_balancer_arn = aws_alb.web-alb.arn
+  port              = 3000
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.monitor_grafana_server.arn
+  }
+
+  tags = {
+    Name = "monitor_grafana_alb_listener"
+  }
+}
+resource "aws_alb_target_group" "monitor_grafana_server" {
+  name     = "monitor-grafana-target-group"
+  port     = 3000
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.vpc.id
+
+  health_check {
+    enabled = true
+    path    = "/"
+    port    = 3000
+  }
+
+  tags = {
+    Name = "monitor-alb-tg"
+  }
+}
+
+resource "aws_alb_target_group_attachment" "monitor_grafana_server" {
+  target_group_arn = aws_alb_target_group.monitor_grafana_server.arn
+  target_id        = var.monitor_server_id
+  port             = 3000
+  depends_on = [
+    var.monitor_server_id
+  ]
+}
+
+
+
+resource "aws_alb_listener" "monitor_prometheus_listener" {
+  load_balancer_arn = aws_alb.web-alb.arn
+  port              = 9090
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.monitor_prometheus_server.arn
+  }
+
+  tags = {
+    Name = "monitor_alb_listener"
+  }
+}
+resource "aws_alb_target_group" "monitor_prometheus_server" {
+  name     = "monitor1-server-target-group"
+  port     = 9090
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.vpc.id
+
+  health_check {
+    enabled = true
+    path    = "/"
+    port    = 9090
+  }
+
+  tags = {
+    Name = "monitor-prometheus-alb-tg"
+  }
+}
+
+resource "aws_alb_target_group_attachment" "monitor_prometheus_server" {
+  target_group_arn = aws_alb_target_group.monitor_prometheus_server.arn
+  target_id        = var.monitor_server_id
+  port             = 9090
+  depends_on = [
+    var.monitor_server_id
+  ]
+}

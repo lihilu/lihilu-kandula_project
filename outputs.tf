@@ -44,3 +44,8 @@ output "db_endpoint" {
   value = module.db.db_endpoint
   description = "Database endpoint"
 }
+
+output "monitor_server_ip" {
+  value = module.monitor_system.monitor_server_ip
+  description = "monitor private ip"
+}
