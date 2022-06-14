@@ -60,6 +60,10 @@ variable "destination_cidr_block" {
   default = "0.0.0.0/0"
 }
 
+variable "route53_host_zone_name" {
+  default = "ops.club"
+}
+
 variable "consul_security_group_id" {}
 variable "jenkins_server_id" {}
 variable "monitor_server_id" {}
