@@ -8,6 +8,10 @@ variable "instance_type_ansible" {
   default = "t2.micro"
 }
 
+variable "sg_node_exporter_id" {}
+
+variable "consul_join_tag_value"{}
+
 variable "key_name" {}
 
 variable "security_group_db_id" {}
@@ -23,3 +27,5 @@ variable "default_tags" {}
 variable "bastion_public_ip" {}
 
 variable "key_local" {}
+
+variable "consul_security_group_id" {}

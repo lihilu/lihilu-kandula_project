@@ -41,3 +41,41 @@ resource "aws_security_group" "monitor_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+
+resource "aws_security_group" "node_exporter_sg" {
+  name        = "node-exporter-sg"
+  description = "Security group for node-exporter"
+  vpc_id      = var.my_vpc_id
+  tags = {
+    Name = "node-exporter-sg"
+  }
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "node_exporter" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  description       = "Allow node_exporter port within group"
+  security_group_id = aws_security_group.node_exporter_sg.id
+}
+
+
+# resource "aws_security_group" "node_exporter_sg" {
+#   name        = "node_exporter_sg"
+#   description = "Security group for node exporter"
+#   vpc_id      = var.my_vpc_id
+#       ## Incoming roles
+#      ingress {
+#        from_port   = 9100
+#        to_port     = 9100
+#        protocol    = "tcp"
+#        self        = true
+#        description = "Allow all inside security group"
+#      }
+# }

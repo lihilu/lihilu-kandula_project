@@ -11,10 +11,6 @@ resource "aws_route53_record" "www" {
   name    = "finalproject.ops.club"
   type    = "CNAME"
   allow_overwrite = true
-
-  alias {
-    name                   = aws_alb.web-alb.dns_name
-    zone_id                = aws_alb.web-alb.zone_id
-    evaluate_target_health = true
-  }
+  ttl     = "60"
+  records = [aws_alb.web-alb.dns_name]
 }

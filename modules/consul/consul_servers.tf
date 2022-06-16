@@ -28,6 +28,11 @@ resource "aws_autoscaling_group" "consul_servers" {
   target_group_arns         = ["${var.target_group_arns}"]
 
   tags = [
+     {
+      key                 = "monitor"
+      value               = "node_exporter"
+      propagate_at_launch = true
+    },
     {
       key                 = "Name"
       value               = "consul-server"
@@ -60,7 +65,7 @@ resource "aws_launch_configuration" "consul_servers" {
   image_id        = data.aws_ami.ubuntu_16_consul.id
   instance_type   = var.consul_instance_type
   key_name        = var.key_name
-  security_groups = [aws_security_group.consul_security_group.id, var.alb_security_group]
+  security_groups = [aws_security_group.consul_security_group.id, var.alb_security_group,var.sg_node_exporter_id]
   user_data       = local.consul_run_ansible_remote
   #associate_public_ip_address = var.public_ip
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name

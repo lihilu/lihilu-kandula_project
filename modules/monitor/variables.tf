@@ -3,7 +3,7 @@ variable "monitor_servers" {
 }
 
 variable "monitor_instance_type" {
-  default = "t2.micro"
+  default = "t2.medium"
 }
 
 variable "key_name" {

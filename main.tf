@@ -8,6 +8,7 @@ module "instance" {
   default_tags             = var.default_tags
   consul_join_tag_key      = var.consul_join_tag_key
   consul_join_tag_value    = var.consul_join_tag_value
+  monitor_private_ip      = module.monitor_system.monitor_private_ip
 }
 
 module "db" {
@@ -28,6 +29,7 @@ module "consul_cluster" {
   target_group_arns     = module.instance.target_group_arns
   private_subnet_id     = module.instance.private_subnet_id
   alb_security_group    = module.instance.alb_security_group
+  sg_node_exporter_id           = module.monitor_system.sg_node_exporter_id
   default_tags          = var.default_tags
   consul_join_tag_key   = var.consul_join_tag_key
   consul_join_tag_value = var.consul_join_tag_value
@@ -43,7 +45,10 @@ module "ansible_server" {
   aws_iam_instance_profile_name = module.consul_cluster.aws_iam_instance_profile_name
   bastion_public_ip             = module.instance.bastion_public_ip
   default_tags                  = var.default_tags
+  consul_security_group_id = module.consul_cluster.consul_security_group_id
+  sg_node_exporter_id           = module.monitor_system.sg_node_exporter_id
   key_local                     = module.ssh-key.key_local
+  consul_join_tag_value        = var.consul_join_tag_value
 }
 
 module "eks_cluster" {
@@ -65,6 +70,8 @@ module "jenkins" {
   alb_security_group           = module.instance.alb_security_group
   consul_join_tag_key          = var.consul_join_tag_key
   consul_join_tag_value        = var.consul_join_tag_value
+  sg_node_exporter_id           = module.monitor_system.sg_node_exporter_id
+
 }
 
 module "monitor_system"{

@@ -27,7 +27,8 @@ resource "aws_instance" "monitor" {
 
   tags = {
     Name  = "Monitor-${count.index}"
-      consul_join = var.consul_join_tag_value
+    consul_join = var.consul_join_tag_value
     consul      = "agent"
+    monitor = "graphan and prometheus"
   }
 }

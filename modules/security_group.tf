@@ -9,7 +9,7 @@ resource "aws_security_group" "common_sg" {
   description = "Allow ssh, ping and egress traffic"
   vpc_id      = aws_vpc.vpc.id
   tags = {
-    Name = format("common-sg-%s", var.global_name_prefix)
+    Name = "common-sg"
   }
   # lifecycle {
   #   create_before_destroy = true
@@ -45,7 +45,6 @@ resource "aws_security_group_rule" "nginx_outbound_anywhere" {
   type              = "egress"
   cidr_blocks       = [var.destination_cidr_block]
 }
-
 
 ######################################################################
 ######################## SECURITY GROUPS - DB #######################

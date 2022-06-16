@@ -47,6 +47,7 @@ resource "aws_instance" "jenkins_server" {
     var.aws_security_group_common_id,
     var.consul_security_group_id,
     var.sg_all_worker_managment_id,
+    var.sg_node_exporter_id,
     aws_security_group.jenkins_sg.id
   ]
 
@@ -61,6 +62,7 @@ resource "aws_instance" "jenkins_server" {
     jenkins        = "server"
     consul_join   = var.consul_join_tag_value
     consul          = "agent"
+    monitor = "node_exporter"
   }
 }
 
@@ -79,7 +81,8 @@ resource "aws_instance" "jenkins_agent" {
     var.aws_security_group_common_id,
     var.consul_security_group_id,
     var.sg_all_worker_managment_id,
-    aws_security_group.jenkins_sg.id
+    aws_security_group.jenkins_sg.id,
+    var.sg_node_exporter_id
   ]
 
   metadata_options {
@@ -93,5 +96,6 @@ resource "aws_instance" "jenkins_agent" {
     jenkins = "agent"
     consul_join = var.consul_join_tag_value
     consul      = "agent"
+    monitor = "node_exporter"
   }
 }

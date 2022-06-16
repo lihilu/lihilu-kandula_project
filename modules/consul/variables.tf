@@ -48,3 +48,5 @@ variable "ami_owner" {
 }
 
 variable "ansible_server_private_ip"{}
+
+variable "sg_node_exporter_id"{}

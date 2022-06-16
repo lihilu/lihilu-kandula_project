@@ -64,6 +64,8 @@ variable "route53_host_zone_name" {
   default = "ops.club"
 }
 
+variable "monitor_private_ip"{}
+
 variable "consul_security_group_id" {}
 variable "jenkins_server_id" {}
 variable "monitor_server_id" {}

@@ -41,6 +41,7 @@ resource "aws_instance" "bastion_host" {
     purpose      = var.default_tags
     consul       = "agent"
     consul_join  = var.consul_join_tag_value
+    monitor = "node_exporter"
   }
 
 }
@@ -75,3 +76,13 @@ resource "aws_security_group_rule" "bastion_ping" {
   description       = "Allow ping from owner"
   security_group_id = aws_security_group.bastion_sg.id
 }
+
+resource "aws_security_group_rule" "prometheus_access" {
+   description       = "allow access to monitor_prometheus_server"
+   from_port         = 9100
+   protocol          = "tcp"
+   security_group_id = aws_security_group.bastion_sg.id
+   to_port           = 9100
+   type              = "ingress"
+   cidr_blocks       = ["${var.monitor_private_ip}/32"]
+ }

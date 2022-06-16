@@ -160,7 +160,7 @@ resource "aws_alb_listener" "monitor_grafana_listener" {
   }
 }
 resource "aws_alb_target_group" "monitor_grafana_server" {
-  name     = "monitor-grafana-target-group"
+  name     = "monitor-grafana-tg"
   port     = 3000
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
@@ -202,7 +202,7 @@ resource "aws_alb_listener" "monitor_prometheus_listener" {
   }
 }
 resource "aws_alb_target_group" "monitor_prometheus_server" {
-  name     = "monitor1-server-target-group"
+  name     = "monitor-prometheus-server-tg"
   port     = 9090
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
