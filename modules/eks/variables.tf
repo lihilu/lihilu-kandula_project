@@ -12,3 +12,5 @@ locals {
   k8s_service_account_name      = "opsschool-sa"
   cluster_name                  = "kandula-project-eks"
 }
+
+variable "sg_node_exporter_id"{}

@@ -22,7 +22,8 @@ resource "aws_instance" "monitor" {
    aws_security_group.monitor_sg.id,   
    var.aws_security_group_common_id,
    var.consul_security_group_id,
-   var.sg_all_worker_managment_id]
+   var.sg_all_worker_managment_id,
+   aws_security_group.node_exporter_sg.id]
   key_name               = var.key_name
 
   tags = {

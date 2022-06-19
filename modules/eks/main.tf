@@ -30,6 +30,7 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = var.cluster_version
   subnet_ids      = var.private_subnet_ids_list
+  
 
   vpc_id = var.my_vpc_id
 
@@ -43,10 +44,11 @@ module "eks" {
   eks_managed_node_groups = {
 
     group_1 = {
+      additional_security_group_ids = [aws_security_group.all_worker_mgmt.id, var.sg_node_exporter_id]
       min_size       = 2
       max_size       = 6
       desired_size   = 2
-      instance_types = ["t2.micro"]
+      instance_types = ["t2.medium"]
       tags = {
         purpose = var.default_tags
       }
@@ -56,7 +58,7 @@ module "eks" {
       min_size       = 2
       max_size       = 6
       desired_size   = 2
-      instance_types = ["t2.micro"]
+      instance_types = ["t2.medium"]
 
     }
   }

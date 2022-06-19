@@ -11,6 +11,8 @@
         service.beta.kubernetes.io/do-loadbalancer-hostname: "kandula.ops.club"
         service.beta.kubernetes.io/do-loadbalancer-http2-ports: 443,80
         service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "${finalproject_tls_arn}"
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9100"
  spec:
    selector:
      app: backend
@@ -24,3 +26,7 @@
       protocol: TCP
       port: 443
       targetPort: 5000
+    - name: node
+      port: 9100
+      targetPort: 9100
+      protocol: TCP

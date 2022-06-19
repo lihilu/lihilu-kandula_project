@@ -56,6 +56,8 @@ module "eks_cluster" {
   my_vpc_id               = module.instance.my_vpc_id
   private_subnet_ids_list = module.instance.private_subnet_ids_list
   default_tags            = var.default_tags
+  sg_node_exporter_id           = module.monitor_system.sg_node_exporter_id
+
 }
 
 module "jenkins" {
