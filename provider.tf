@@ -6,10 +6,14 @@ terraform {
       version = "~> 3.72.0"
     }
     random = "~> 2.3.0"
-    # kubernetes = {
-    #   source  = "hashicorp/kubernetes"
-    #   version = ">=2.7.1"
-    # }
+    kubernetes = {
+       source  = "hashicorp/kubernetes"
+       version = ">=2.10"
+     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 3.0"
+    }
     # random = {
     #   source  = "hashicorp/random"
     #   version = "~> 3.1.0"

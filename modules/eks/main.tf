@@ -23,6 +23,16 @@ resource "kubernetes_service_account" "opsschool_sa" {
   }
   depends_on = [module.eks]
 }
+resource "kubernetes_service_account" "lihi_kandula_sa" {
+  metadata {
+    name      = local.k8s_service_account_name_lihi
+    namespace = local.k8s_service_account_namespace
+    annotations = {
+      "eks.amazonaws.com/role-arn" = module.iam_assumable_role_kandula.iam_role_arn
+    }
+  }
+  depends_on = [module.eks]
+}
 
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
@@ -44,22 +54,37 @@ module "eks" {
   eks_managed_node_groups = {
 
     group_1 = {
-      additional_security_group_ids = [aws_security_group.all_worker_mgmt.id, var.sg_node_exporter_id]
+      additional_security_group_ids = [
+        aws_security_group.all_worker_mgmt.id,
+        var.consul_security_group_id,
+        var.sg_node_exporter_id,
+        var.monitor_security_group_id
+      ]
       min_size       = 2
       max_size       = 6
       desired_size   = 2
       instance_types = ["t2.medium"]
       tags = {
         purpose = var.default_tags
+        k8s         = "true"
       }
     }
 
     group_2 = {
+      additional_security_group_ids = [
+        aws_security_group.all_worker_mgmt.id,
+        var.consul_security_group_id,
+        var.sg_node_exporter_id,
+        var.monitor_security_group_id
+      ]
       min_size       = 2
       max_size       = 6
       desired_size   = 2
       instance_types = ["t2.medium"]
-
+      tags = {
+        purpose = var.default_tags
+        k8s         = "true"
+      }
     }
   }
 }
@@ -72,6 +97,17 @@ module "iam_assumable_role_admin" {
   provider_url                  = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
   role_policy_arns              = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess"]
   oidc_fully_qualified_subjects = ["system:serviceaccount:${local.k8s_service_account_namespace}:${local.k8s_service_account_name}"]
+}
+
+module "iam_assumable_role_kandula" {
+  source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version                       = "~> 4.7.0"
+  create_role                   = true
+  role_name                     = "opsschool_kandula_role"
+  provider_url                  = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
+  role_policy_arns              = ["arn:aws:iam::aws:policy/AmazonEC2FullAccess",
+                                    var.jenkins_agent_role_arn]
+  oidc_fully_qualified_subjects = ["system:serviceaccount:${local.k8s_service_account_namespace}:${local.k8s_service_account_name_lihi}"]
 }
 
 

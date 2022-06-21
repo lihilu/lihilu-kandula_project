@@ -13,3 +13,7 @@ output "sg_node_exporter_id" {
 output "monitor_private_ip" {
   value = aws_instance.monitor[0].private_ip
 }
+
+output "monitor_security_group_id" {
+  value = aws_security_group.monitor_sg.id
+}

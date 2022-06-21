@@ -54,10 +54,13 @@ module "ansible_server" {
 module "eks_cluster" {
   source                  = "./modules/eks"
   my_vpc_id               = module.instance.my_vpc_id
+  consul_security_group_id = module.consul_cluster.consul_security_group_id
   private_subnet_ids_list = module.instance.private_subnet_ids_list
   default_tags            = var.default_tags
   sg_node_exporter_id           = module.monitor_system.sg_node_exporter_id
-
+  monitor_security_group_id = module.monitor_system.monitor_security_group_id
+  jenkins_agent = module.jenkins.jenkins_agent
+  jenkins_agent_role_arn  = module.jenkins.jenkins_agent_role_arn
 }
 
 module "jenkins" {
@@ -87,7 +90,7 @@ module "monitor_system"{
   aws_security_group_common_id = module.instance.aws_security_group_common_id
   alb_security_group           = module.instance.alb_security_group
   default_tags            = var.default_tags
-    consul_join_tag_key          = var.consul_join_tag_key
+   consul_join_tag_key          = var.consul_join_tag_key
   consul_join_tag_value        = var.consul_join_tag_value
 }
 

@@ -7,9 +7,9 @@ resource "aws_acm_certificate" "kandula_tls" {
     Environment = "prod"
   }
 
-#   lifecycle {
-#     create_before_destroy = true
-#   }
+   lifecycle {
+     create_before_destroy = true
+   }
 }
 
  resource "aws_acm_certificate_validation" "validation" {
