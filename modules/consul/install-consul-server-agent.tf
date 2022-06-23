@@ -1,19 +1,19 @@
 
-locals {
-  consul_run_ansible_remote= <<USERDATA
-  #!/usr/bin/env bash
-  set -e
+# locals {
+#   consul_run_ansible_remote= <<USERDATA
+#   #!/usr/bin/env bash
+#   set -e
 
-  sudo hostnamectl set-hostname consul_server
+#   sudo hostnamectl set-hostname consul_server
 
-  tee  /tmp/run_ansible.sh > /dev/null <<EOF
-  ssh -i ~/.ssh/project_instance_key.pem ubuntu@${var.ansible_server_private_ip} 'ansible-playbook ~/kandula_project/ansible/playbook_consul.yml'
-  EOF
+#   tee  /tmp/run_ansible.sh > /dev/null <<EOF
+#   ssh -i ~/.ssh/project_instance_key.pem ubuntu@${var.ansible_server_private_ip} 'ansible-playbook ~/kandula_project/ansible/playbook_consul.yml'
+#   EOF
 
-  echo ssh -i ~/.ssh/project_instance_key.pem ubuntu@${var.ansible_server_private_ip} ansible-playbook ~/kandula_project/ansible/playbook_consul.yml
-  @reboot /bin/sh /tmp/run_ansible.sh
-  USERDATA
-}
+#   echo ssh -i ~/.ssh/project_instance_key.pem ubuntu@${var.ansible_server_private_ip} ansible-playbook ~/kandula_project/ansible/playbook_consul.yml
+#   @reboot /bin/sh /tmp/run_ansible.sh
+#   USERDATA
+# }
 #   consul_server-userdata = <<USERDATA
 # #!/usr/bin/env bash
 # set -e

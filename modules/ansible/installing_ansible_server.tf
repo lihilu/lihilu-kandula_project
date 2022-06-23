@@ -15,11 +15,30 @@ apt-get -y install python3-pip
 pip install boto3
 ansible-galaxy collection install amazon.aws
 sudo usermod -aG sudo ubuntu
-sleep 9m
+sleep 5m
+
+sudo apt-get update
+sudo apt-get install awscli -y
+pip install --upgrade --user awscli
+
+sudo apt-get update
+sudo curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl
+sudo chmod +x ./kubectl
+sudo mkdir -p $HOME/bin && sudo cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+
+echo "connecting kube"
+aws eks --region=us-east-1 update-kubeconfig --name kandula-project-eks
+
+sudo wget https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz
+sudo tar xvf helm-v3.4.1-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin
+sudo rm helm-v3.4.1-linux-amd64.tar.gz
+sudo rm -rf linux-amd64
 
 
+sleep 5m
 git clone https://github.com/lihilu/kandula_ansible.git /home/ubuntu/kandula_project/ && echo "cloned"
-sleep 1m
+sleep 5m
 
 
 echo "Creating cron..."

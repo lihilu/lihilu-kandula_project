@@ -25,13 +25,6 @@ resource "aws_security_group" "jenkins_sg" {
       security_groups = [var.alb_security_group]
       description     = "UI"
       }
-      ingress {
-      from_port   = 9100
-      to_port     = 9100
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-      description = "promethos Connection"
-      }
       egress {
       from_port   = 0
       to_port     = 0

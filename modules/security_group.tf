@@ -26,6 +26,16 @@ resource "aws_security_group_rule" "nginx_http_acess" {
   cidr_blocks       = [var.destination_cidr_block]
 }
 
+resource "aws_security_group_rule" "promethues_access" {
+  description       = "allow promethues 9100 access"
+  from_port         = 9100
+  protocol          = "tcp"
+  security_group_id = aws_security_group.common_sg.id
+  to_port           = 9100
+  type              = "ingress"
+  cidr_blocks       = [var.destination_cidr_block]
+}
+
 resource "aws_security_group_rule" "nginx_ssh_acess" {
   description       = "allow ssh access from anywhere"
   from_port         = 22

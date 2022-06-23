@@ -36,11 +36,37 @@ resource "kubernetes_service_account" "lihi_kandula_sa" {
 
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "18.6.1"
+  version         = "18.20"
   cluster_name    = local.cluster_name
   cluster_version = var.cluster_version
   subnet_ids      = var.private_subnet_ids_list
   
+  enable_irsa = true
+
+  manage_aws_auth_configmap = true
+  aws_auth_roles = [
+    {
+      rolearn  = "arn:aws:iam::314452776120:user/Administrator"
+      username = "Administrator"
+      groups   = ["system:masters"]
+    },
+    {
+      rolearn  = "arn:aws:iam::314452776120:role/ansible-server-aws-iam-role"
+      username = "ansible-server-aws-iam-role"
+      groups   = ["system:masters"]
+    },
+    {
+      rolearn  = "arn:aws:iam::314452776120:role/jenkins_server_iam_role"
+      username = "jenkins_server_iam_role"
+      groups   = ["system:masters"]
+    },
+        {
+      rolearn  = "arn:aws:iam::314452776120:role/opsschool_kandula_role"
+      username = "opsschool_kandula_role"
+      groups   = ["system:masters"]
+    },
+
+  ]
 
   vpc_id = var.my_vpc_id
 
@@ -119,7 +145,6 @@ resource "aws_security_group" "all_worker_mgmt" {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-
     cidr_blocks = ["0.0.0.0/0"]
   }
   lifecycle {

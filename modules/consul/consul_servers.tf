@@ -66,7 +66,7 @@ resource "aws_launch_configuration" "consul_servers" {
   instance_type   = var.consul_instance_type
   key_name        = var.key_name
   security_groups = [aws_security_group.consul_security_group.id, var.alb_security_group,var.sg_node_exporter_id]
-  user_data       = local.consul_run_ansible_remote
+ # user_data       = local.consul_run_ansible_remote
   #associate_public_ip_address = var.public_ip
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
   root_block_device {

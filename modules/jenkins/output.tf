@@ -26,3 +26,7 @@ output "jenkins_agent_role_arn" {
 output "jenkins_agent_arn"{
   value = join(", ",concat(aws_instance.jenkins_agent.*.arn))
 }
+
+output "jenkins_instance_agent_role_name" {
+  value = aws_iam_instance_profile.jenkins_agents.name
+}
