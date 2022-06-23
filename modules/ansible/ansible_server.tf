@@ -11,6 +11,7 @@ resource "aws_instance" "ansible_server" {
   iam_instance_profile        = aws_iam_instance_profile.ansible.name
   tags = {
     Name    = "ansible-server"
+    ansible = "server"
     purpose = var.default_tags
     monitor = "node_exporter"
     consul_join = var.consul_join_tag_value

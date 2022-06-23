@@ -23,3 +23,7 @@ variable "monitor_security_group_id" {}
 variable "jenkins_agent" {}
 
 variable "jenkins_agent_role_arn" {}
+
+variable "consul_join_tag_key" {}
+
+variable "consul_join_tag_value" {}
