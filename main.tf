@@ -39,7 +39,6 @@ module "consul_cluster" {
 module "ansible_server" {
   source                        = "./modules/ansible"
   key_name                      = module.ssh-key.key_name
-  security_group_db_id          = module.instance.security_group_db_id
   private_subnet_id_for_ansible = module.instance.private_subnet_id_for_ansible
   data_ubuntu_ami_id            = module.instance.data_ubuntu_ami_id
   aws_iam_instance_profile_name = module.consul_cluster.aws_iam_instance_profile_name
@@ -61,6 +60,8 @@ module "eks_cluster" {
   monitor_security_group_id = module.monitor_system.monitor_security_group_id
   jenkins_agent = module.jenkins.jenkins_agent
   jenkins_agent_role_arn  = module.jenkins.jenkins_agent_role_arn
+  consul_join_tag_key          = var.consul_join_tag_key
+  consul_join_tag_value        = var.consul_join_tag_value
 }
 
 module "jenkins" {

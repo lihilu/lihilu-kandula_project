@@ -6,7 +6,7 @@ resource "aws_instance" "ansible_server" {
   instance_type               = var.instance_type_ansible
   key_name                    = var.key_name
   subnet_id                   = var.private_subnet_id_for_ansible
-  vpc_security_group_ids      = [var.security_group_db_id, var.sg_node_exporter_id,var.consul_security_group_id]
+  vpc_security_group_ids      = [var.sg_node_exporter_id,var.consul_security_group_id]
   user_data                   = local.ansible_server-userdata
   iam_instance_profile        = aws_iam_instance_profile.ansible.name
   tags = {

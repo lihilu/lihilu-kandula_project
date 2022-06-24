@@ -14,8 +14,6 @@ variable "consul_join_tag_value"{}
 
 variable "key_name" {}
 
-variable "security_group_db_id" {}
-
 variable "private_subnet_id_for_ansible" {}
 
 variable "data_ubuntu_ami_id" {}
