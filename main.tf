@@ -48,6 +48,7 @@ module "ansible_server" {
   sg_node_exporter_id           = module.monitor_system.sg_node_exporter_id
   key_local                     = module.ssh-key.key_local
   consul_join_tag_value        = var.consul_join_tag_value
+  aws_security_group_common_id = module.instance.aws_security_group_common_id
 }
 
 module "eks_cluster" {
