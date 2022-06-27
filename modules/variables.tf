@@ -46,7 +46,7 @@ variable "public_subnet_cidrs" {
 }
 
 variable "global_name_prefix" {
-  default     = "mid-project"
+  default     = "final-project"
   type        = string
   description = "1st prefix in the resources' Name tags"
 }
