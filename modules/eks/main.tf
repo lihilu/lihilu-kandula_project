@@ -40,41 +40,43 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = var.cluster_version
   subnet_ids      = var.private_subnet_ids_list
-  
-  cluster_security_group_additional_rules = {
-    egress_nodes_ephemeral_ports_tcp = {
-      description                = "To node 1025-65535"
-      protocol                   = "tcp"
-      from_port                  = 1025
-      to_port                    = 65535
-      type                       = "egress"
-      source_node_security_group = true
-    }
-  }
-
-  # Extend node-to-node security group rules
-  node_security_group_additional_rules = {
-    ingress_self_all = {
-      description = "Node to node all ports/protocols"
-      protocol    = "-1"
-      from_port   = 0
-      to_port     = 0
-      type        = "ingress"
-      self        = true
-    }
-    egress_all = {
-      description      = "Node all egress"
-      protocol         = "-1"
-      from_port        = 0
-      to_port          = 0
-      type             = "egress"
-      cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["::/0"]
-    }
-  }
-
+  vpc_id = var.my_vpc_id
   enable_irsa = true
 
+  eks_managed_node_group_defaults = {
+      ami_type               = "AL2_x86_64"
+      instance_types         = ["t3.micro"]
+      vpc_security_group_ids = [aws_security_group.all_worker_mgmt.id]
+  }
+
+  eks_managed_node_groups = {
+
+    eks_group_1 = {
+      min_size     = 2
+      max_size     = 6
+      desired_size = 2
+      instance_types = ["t2.medium"]
+      vpc_security_group_ids = [aws_security_group.all_worker_mgmt.id]
+      tags = {
+        purpose = var.default_tags
+        k8s         = "true"
+        consul_join = var.consul_join_tag_value
+      }
+    }
+
+    eks_group_2 = {
+      min_size     = 2
+      max_size     = 6
+      desired_size = 2
+      instance_types = ["t2.medium"]
+      vpc_security_group_ids = [aws_security_group.all_worker_mgmt.id]
+      tags = {
+        purpose = var.default_tags
+        k8s         = "true"
+        consul_join = var.consul_join_tag_value
+      }
+    }
+  }
   manage_aws_auth_configmap = true
   aws_auth_roles = [
     {
@@ -99,42 +101,13 @@ module "eks" {
     },
 
   ]
-
-  vpc_id = var.my_vpc_id
-
   tags = {
     purpose    = var.default_tags
     GithubRepo = "terraform-aws-eks"
     GithubOrg  = "terraform-aws-modules"
-
+    consul_join = var.consul_join_tag_value
   }
 
-  eks_managed_node_groups = {
-
-    group_1 = {
-      min_size       = 2
-      max_size       = 6
-      desired_size   = 2
-      instance_types = ["t2.medium"]
-      tags = {
-        purpose = var.default_tags
-        k8s         = "true"
-        consul_join = var.consul_join_tag_value
-      }
-    }
-
-    group_2 = {
-      min_size       = 2
-      max_size       = 6
-      desired_size   = 2
-      instance_types = ["t2.medium"]
-      tags = {
-        purpose = var.default_tags
-        k8s         = "true"
-        consul_join = var.consul_join_tag_value
-      }
-    }
-  }
 }
 
 module "iam_assumable_role_admin" {
@@ -162,15 +135,63 @@ module "iam_assumable_role_kandula" {
 resource "aws_security_group" "all_worker_mgmt" {
   name_prefix = "all_worker_management"
   vpc_id      = var.my_vpc_id
-
   ingress {
     from_port = 22
-    to_port   = 22
+    to_port   = 100
     protocol  = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 3000
+    protocol  = "tcp"
+    to_port   = 3000
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+    ingress {
+    from_port = 9090
+    to_port   = 9091
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "Node exporter port"
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+    ingress {
+    description = "Node exporter port"
+    from_port   = 8000
+    to_port     = 8900
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+    ingress {
+    description = "Node exporter port"
+    from_port   = 9153
+    to_port     = 10025
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
   lifecycle {
     create_before_destroy = true
-  }
+   }
 }
 

@@ -49,3 +49,14 @@ output "monitor_server_ip" {
   value = module.monitor_system.monitor_server_ip
   description = "monitor private ip"
 }
+
+# output "db_admin" {
+#     sensitive = true
+#     value = module.db.db_admin
+# }
+
+# output "db_pass" {
+#     sensitive = true
+#     value = module.db.db_pass
+# }
+

@@ -32,3 +32,40 @@ resource "null_resource" remoteExecProvisionerWFolder {
     }
   depends_on = [local_file.kubenlb]
 }
+
+
+data "template_file" "postgres_ansible" {
+  template = "${file("${path.module}/template/postgresql_vars_ansible.yaml.tpl")}"
+  vars ={
+    dbusername = "${module.db.db_admin}",
+    dbpassword = "${module.db.db_pass}",
+    dbname = "${module.db.db_name}",
+    dbhost = "${module.db.db_host}"
+  }
+  depends_on= [module.db]
+}
+
+resource "local_file" "postgres_ansible" {
+    content = "${data.template_file.postgres_ansible.rendered}"
+    filename = "temp/vars.yaml"
+    depends_on = [data.template_file.postgres_ansible]
+}
+
+resource "null_resource" remoteExecProvisionerWFolderansible {
+
+  provisioner "file" {
+    source      = "temp/vars.yaml"
+    destination = "/tmp/vars.yml"
+  }
+
+  connection {
+    host     = "${module.ansible_server.ansible_server_private_ip[0]}"
+    type     = "ssh"
+    user     = "ubuntu"
+    private_key = file(module.ssh-key.key_local)
+    bastion_host        = "${module.instance.bastion_public_ip[0]}"
+    bastion_private_key = file(module.ssh-key.key_local)
+    agent               = false
+    }
+  depends_on = [local_file.postgres_ansible]
+}
