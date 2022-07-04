@@ -19,3 +19,7 @@ output "db_name" {
   value = var.db_name
   description = "db name"
 }
+
+output "db_sg_id"{
+  value = aws_security_group.rds_sg.id
+}

@@ -34,6 +34,14 @@ resource "aws_security_group" "monitor_sg" {
     security_groups = [var.alb_security_group]
     description     = "Allow all traffic to HTTP port 9090"
   }
+    ingress {
+    from_port       = 8000
+    to_port         = 8900
+    protocol        = "tcp"
+    cidr_blocks     = ["0.0.0.0/0"]
+    security_groups = [var.alb_security_group]
+    description     = "Allow all traffic 8000 8900"
+  }
   egress {
     from_port   = 0
     to_port     = 0

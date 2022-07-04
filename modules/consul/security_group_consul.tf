@@ -136,3 +136,23 @@ resource "aws_security_group_rule" "consul_http_acess" {
   type              = "ingress"
   cidr_blocks       = ["0.0.0.0/0"]
 }
+
+
+resource "aws_security_group_rule" "all_ports_engress" {
+  security_group_id = aws_security_group.consul_security_group.id
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_security_group_rule" "prometheus_port_check" {
+  description       = "allow http access from anywhere"
+  from_port         = 22
+  protocol          = "tcp"
+  security_group_id = aws_security_group.consul_security_group.id
+  to_port           = 10000
+  type              = "ingress"
+  cidr_blocks       = ["0.0.0.0/0"]
+}

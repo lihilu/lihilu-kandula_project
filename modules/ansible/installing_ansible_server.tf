@@ -14,11 +14,13 @@ sudo apt-get install python3
 sudo apt-get -y install python3-pip
 
 echo "awscli install"
-sudo pip install boto3
-ansible-galaxy collection install amazon.aws
-sudo usermod -aG sudo ubuntu
 sudo apt install awscli -y
-sudo pip install --upgrade --user awscli
+pip install --upgrade --user awscli
+pip install boto3
+ansible-galaxy collection install amazon.aws
+ansible-galaxy collection install community.postgresql
+sudo usermod -aG sudo ubuntu
+
 
 echo "kubectl install"
 sudo apt-get update

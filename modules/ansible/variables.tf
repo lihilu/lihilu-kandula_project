@@ -29,3 +29,5 @@ variable "key_local" {}
 variable "consul_security_group_id" {}
 
 variable "aws_security_group_common_id"{}
+
+variable "db_sg_id" {}
