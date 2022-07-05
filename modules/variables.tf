@@ -71,3 +71,4 @@ variable "jenkins_server_id" {}
 variable "monitor_server_id" {}
 variable "consul_join_tag_key" {}
 variable "consul_join_tag_value" {}
+variable "elk_alb_dns_name"{}

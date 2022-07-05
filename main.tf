@@ -9,6 +9,7 @@ module "instance" {
   consul_join_tag_key      = var.consul_join_tag_key
   consul_join_tag_value    = var.consul_join_tag_value
   monitor_private_ip      = module.monitor_system.monitor_private_ip
+  elk_alb_dns_name        = module.elk.elk_alb_dns_name
 }
 
 module "db" {
@@ -95,6 +96,22 @@ module "monitor_system"{
   default_tags            = var.default_tags
    consul_join_tag_key          = var.consul_join_tag_key
   consul_join_tag_value        = var.consul_join_tag_value
+}
+
+module "elk" {
+  source                   = "./modules/elk/"
+  data_ubuntu_ami_id        = module.instance.data_ubuntu_ami_id
+  key_name                      = module.ssh-key.key_name
+  aws_iam_instance_profile_name = module.consul_cluster.aws_iam_instance_profile_name
+  private_subnet_id_for_ansible = module.instance.private_subnet_id_for_ansible
+  consul_security_group_id     = module.consul_cluster.consul_security_group_id
+  aws_security_group_common_id = module.instance.aws_security_group_common_id
+  sg_node_exporter_id           = module.monitor_system.sg_node_exporter_id
+  default_tags            = var.default_tags
+  consul_join_tag_value        = var.consul_join_tag_value
+  my_vpc_id             = module.instance.my_vpc_id
+  finalproject_tls_arn = module.instance.finalproject_tls_arn
+  private_subnet_ids_list = module.instance.private_subnet_ids_list
 }
 
 module "ssh-key" {
