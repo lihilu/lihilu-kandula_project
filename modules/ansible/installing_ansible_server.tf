@@ -5,7 +5,7 @@ locals {
 set -e
 
 sudo hostnamectl set-hostname ansible-server
-
+sudo usermod -aG sudo ubuntu
 sudo apt-get update
 sudo apt-get -y install ansible
 sudo apt-get install -y git
@@ -13,23 +13,19 @@ mkdir -p /home/ubuntu/kandula_project
 sudo apt-get install python3
 sudo apt-get -y install python3-pip
 
-echo "awscli install"
 sudo apt install awscli -y
 pip install --upgrade --user awscli
 pip install boto3
 ansible-galaxy collection install amazon.aws
 ansible-galaxy collection install community.postgresql
-sudo usermod -aG sudo ubuntu
 
-
-echo "kubectl install"
+sleep 30s
 sudo apt-get update
 sudo curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl
 sudo chmod +x ./kubectl
 sudo mkdir -p $HOME/bin && sudo cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
 
 
-echo "helm install"
 sudo wget https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz
 sudo tar xvf helm-v3.4.1-linux-amd64.tar.gz
 sudo mv linux-amd64/helm /usr/local/bin
@@ -50,7 +46,7 @@ sudo mv /home/ubuntu/kandula_project/ansible/ansible.cfg /etc/ansible/ansible.cf
 ansible-playbook -i /home/ubuntu/kandula_project/ansible/inventory_aws_ec2.yml /home/ubuntu/kandula_project/ansible/playbook_consul.yml
 sleep 1m
 
-
+sudo chown -R ubuntu /home/ubuntu/*
 echo "connecting kube"
 sudo aws eks --region=us-east-1 update-kubeconfig --name kandula-project-eks
 

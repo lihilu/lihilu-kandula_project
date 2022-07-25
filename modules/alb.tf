@@ -7,7 +7,7 @@ resource "aws_alb" "web-alb" {
   security_groups    = [aws_security_group.alb_sg.id]
 
   tags = {
-    Name = format("alb-%s", var.global_name_prefix)
+    Name = "alb-all"
   }
 }
 
@@ -46,6 +46,13 @@ resource "aws_security_group" "alb_sg" {
    ingress {
     from_port   = 9090
     to_port     = 9090
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow monitor UI access"
+  }
+   ingress {
+    from_port   = 9100
+    to_port     = 9100
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "Allow monitor UI access"

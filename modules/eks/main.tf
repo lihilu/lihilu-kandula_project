@@ -157,15 +157,8 @@ resource "aws_security_group" "all_worker_mgmt" {
 
     ingress {
     from_port = 9090
-    to_port   = 9091
+    to_port   = 9099
     protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "Node exporter port"
-    from_port   = 9100
-    to_port     = 9100
-    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -178,8 +171,8 @@ resource "aws_security_group" "all_worker_mgmt" {
   }
     ingress {
     description = "Node exporter port"
-    from_port   = 9153
-    to_port     = 10025
+    from_port   = 9100
+    to_port     = 15000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
