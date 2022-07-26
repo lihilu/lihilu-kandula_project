@@ -4,12 +4,12 @@ module "instance" {
   consul_security_group_id = module.consul_cluster.consul_security_group_id
   jenkins_server_id        = module.jenkins.jenkins_server_id
   monitor_server_id       = module.monitor_system.monitor_server_id
+  elk_server_id       = module.elk.elk_server_id
   key_name                 = module.ssh-key.key_name
   default_tags             = var.default_tags
   consul_join_tag_key      = var.consul_join_tag_key
   consul_join_tag_value    = var.consul_join_tag_value
   monitor_private_ip      = module.monitor_system.monitor_private_ip
-  elk_alb_dns_name        = module.elk.elk_alb_dns_name
 }
 
 module "db" {

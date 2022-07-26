@@ -1,5 +1,4 @@
 resource "aws_instance" "elk" {
-  count                       = var.num_elk_servers
   ami                         = var.data_ubuntu_ami_id
   instance_type               = var.elk_instance_type
   key_name                    = var.key_name
@@ -21,7 +20,7 @@ resource "aws_instance" "elk" {
   }
 
   tags = {
-    Name                = "elk-${count.index}"
+    Name                = "elk-0"
     elk_server          = "elk_true"
     consul_join   = var.consul_join_tag_value
     consul          = "agent"

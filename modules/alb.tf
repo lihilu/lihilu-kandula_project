@@ -30,6 +30,13 @@ resource "aws_security_group" "alb_sg" {
     description = "Allow consul UI access"
   }
   ingress {
+    from_port   = 5601
+    to_port     = 5601
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow kubana UI access"
+  }
+  ingress {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
@@ -231,5 +238,45 @@ resource "aws_alb_target_group_attachment" "monitor_prometheus_server" {
   port             = 9090
   depends_on = [
     var.monitor_server_id
+  ]
+}
+
+resource "aws_alb_listener" "kibana_listener" {
+  load_balancer_arn = aws_alb.web-alb.arn
+  port              = 5601
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.kibana_server.arn
+  }
+
+  tags = {
+    Name = "kibana_alb_listener"
+  }
+}
+resource "aws_alb_target_group" "kibana_server" {
+  name     = "kibana-server-tg"
+  port     = 5601
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.vpc.id
+
+  health_check {
+    enabled = true
+    path    = "/"
+    port    = 5601
+  }
+
+  tags = {
+    Name = "kibana-alb-tg"
+  }
+}
+
+resource "aws_alb_target_group_attachment" "kibana_server" {
+  target_group_arn = aws_alb_target_group.kibana_server.arn
+  target_id        = var.elk_server_id
+  port             = 5601
+  depends_on = [
+    var.elk_server_id
   ]
 }

@@ -50,11 +50,6 @@ output "monitor_server_ip" {
   description = "monitor private ip"
 }
 
-output "elk_alb_dns_name" {
-  value = module.elk.elk_alb_dns_name
-  description = "elk alb"
-}
-
 # output "db_admin" {
 #     sensitive = true
 #     value = module.db.db_admin
