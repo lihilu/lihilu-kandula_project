@@ -151,7 +151,7 @@ resource "aws_security_group" "all_worker_mgmt" {
   ingress {
     from_port = 3000
     protocol  = "tcp"
-    to_port   = 3000
+    to_port   = 5500
     cidr_blocks = ["0.0.0.0/0"]
   }
 

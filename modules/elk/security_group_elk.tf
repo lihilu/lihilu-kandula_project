@@ -13,6 +13,16 @@ resource "aws_security_group" "elk_sg" {
 resource "aws_security_group_rule" "elasticsearch_rest_tcp" {
   type              = "ingress"
   from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  description       = "Allow elk rest tcp"
+  security_group_id = aws_security_group.elk_sg.id
+}
+
+resource "aws_security_group_rule" "elasticsearch_tcp" {
+  type              = "ingress"
+  from_port         = 9200
   to_port           = 9200
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]

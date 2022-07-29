@@ -20,7 +20,7 @@ resource "aws_instance" "elk" {
   }
 
   tags = {
-    Name                = "elk-0"
+    Name                = "elk"
     elk_server          = "elk_true"
     consul_join   = var.consul_join_tag_value
     consul          = "agent"
