@@ -1,37 +1,33 @@
-variable "purpose_tag" {
-  default = "kandula project"
-  type    = string
-}
 
+variable "default_tags" {}
 
 variable "key_name" {
   type = string
 }
 
 variable "num_web_server" {
-    default = "2"
-    description = "Num of web servers connected to public subbnet with ngnix"
+  default     = "1"
+  description = "Num of web servers connected to public subbnet with ngnix"
 }
 
 variable "num_db_server" {
-    default = "2"
-    description = "Num of db servers connected to public subbnet with ngnix"
+  default     = "2"
+  description = "Num of db servers connected to public subbnet with ngnix"
 }
 
-variable "instance_type"{
-  type        = string
-  default     = "t2.micro"
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
 }
 
 variable "volume_size" {
-    type = number
-    default = "10"
+  type    = number
+  default = "10"
 }
 
 variable "volume_type" {
-    default = "gp2"
+  default = "gp2"
 }
-
 
 variable "vpc_cidr_block" {
   default = "10.0.0.0/16"
@@ -55,13 +51,17 @@ variable "global_name_prefix" {
   description = "1st prefix in the resources' Name tags"
 }
 
-
 variable "route_tables_names" {
   type    = list(string)
   default = ["public", "private-a", "private-b"]
 }
 
-
-variable "destination_cidr_block"{
-  default= "0.0.0.0/0"
+variable "destination_cidr_block" {
+  default = "0.0.0.0/0"
 }
+
+variable "consul_security_group_id" {}
+variable "jenkins_server_id" {}
+
+variable "consul_join_tag_key" {}
+variable "consul_join_tag_value" {}
