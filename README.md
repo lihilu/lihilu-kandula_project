@@ -49,7 +49,7 @@ Host 10.0.*.*
 ## Consul
 [finalproject.ops.club:8500](http://finalproject.ops.club:8500/)
 
-![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/consuland services.gif)
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/consuland_services.gif)
 
 ## jenkins
 http://finalproject.ops.club:8080/ or https://finalproject.ops.club:443
