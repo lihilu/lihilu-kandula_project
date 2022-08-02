@@ -73,21 +73,21 @@ https://kandula.ops.club/
 ![](https://github.com/lihilu/lihilu-kandula_project/blob/elk/pic/OpsSchool-Coding-Welcome-to-Kandula-scheduling-in-ui.gif)
 
 ## Elastic search + filebeat
-[finalproject.ops.club:6501]
+http://finalproject.ops.club:6501
 
-![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/ElasticSearch.gif)
+![](https://github.com/lihilu/lihilu-kandula_project/blob/elk/pic/ElasticSearch.gif)
 
-![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/Discover-Elastic-27-July-2022.gif)
+![](https://github.com/lihilu/lihilu-kandula_project/blob/elk/pic/OpsSchool-Coding-Welcome-to-Kandula-scheduling-in-ui.gif)
 
 ## Prometheus
-[http://kube_pro.ops.club:9090/]
+http://kube_pro.ops.club:9090
 
 Inside kube and monitoring also services and instances outside kubernetes
 
-![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/PromOnKubewithEc2Instances.JPG)
+![](https://github.com/lihilu/lihilu-kandula_project/blob/elk/pic/PromOnKubewithEc2Instances.JPG)
 
 ## Grafana
-[http://kube_graf.ops.club/]
+http://kube_graf.ops.club/
 
 Based on prometheus data source and exposing kandula and other services metrics
 
