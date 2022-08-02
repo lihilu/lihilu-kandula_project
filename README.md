@@ -67,7 +67,10 @@ Connect to ansible and run the following playbooks:
 ## Kandula app
 https://kandula.ops.club/
 
-![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/kandukla-stopinstance.gif)
+![](https://github.com/lihilu/lihilu-kandula_project/blob/elk/pic/kandukla-stopinstance.gif)
+
+
+![](https://github.com/lihilu/lihilu-kandula_project/blob/elk/pic/OpsSchool-Coding-Welcome-to-Kandula-scheduling-in-ui.gif)
 
 ## Elastic search + filebeat
 [finalproject.ops.club:6501]
