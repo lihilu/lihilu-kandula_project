@@ -39,6 +39,7 @@ sleep 1m
 echo "coping db var file for ansible"
 sudo cp /tmp/vars.yml /home/ubuntu/kandula_project/ansible/roles/rds/vars/vars.yml
 
+sudo chown -R ubuntu *
 echo "Creating cron..."
 sudo sh -c 'echo "#!/bin/bash \nsudo ansible-playbook -i /home/ubuntu/kandula_project/ansible/inventory_aws_ec2.yml /home/ubuntu/kandula_project/ansible/playbook_consul.yml" > /etc/cron.hourly/playbookrunforconsol.sh'
 sudo chmod +x /etc/cron.hourly/playbookrunforconsol.sh

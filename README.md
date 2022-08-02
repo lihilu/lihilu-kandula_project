@@ -9,7 +9,7 @@
 
 # Mid Project
 
-Envrioment for mid - OpsSchool project
+Envrioment for OpsSchool final project
 ## Installation
 
 1. Fork this repo and download it to your local machine.
@@ -23,9 +23,10 @@ terraform init
 ```bash
 terraform apply --auto-aprove
 ```
-4. After complete, connect to kubectl and config the secret.yaml:
+4. After complete, connect to kubectl and config the secret.yaml+creat kandula name space:
 ```bash
 kubectl apply -f "C:\Users\<USER>\Desktop\importent not delete\kube\secret.yaml"
+kubectl create ns kandula
 ```
 5. Update the ssh config file
 
@@ -46,25 +47,53 @@ Host 10.0.*.*
 ```
 
 ## Consul
-Load-Balancer-URL:8500
+[finalproject.ops.club:8500](http://finalproject.ops.club:8500/)
 
-![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/consul.gif)
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/consuland services.gif)
 
 ## jenkins
-Load-Balancer-URL:8080
+http://finalproject.ops.club:8080/ or https://finalproject.ops.club:443
 
 ![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/jenkins.gif)
 
-## Kandula app
+## Ansible
 
-![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/kandulaonkube.gif)
+Connect to ansible and run the following playbooks:
+* playbook_kube
+* playbook_elk
+* playbook_filebeat
+* playbook_psql
+
+## Kandula app
+https://kandula.ops.club/
+
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/kandukla-stopinstance.gif)
+
+## Elastic search + filebeat
+[finalproject.ops.club:6501]
+
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/ElasticSearch.gif)
+
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/Discover-Elastic-27-July-2022.gif)
+
+## Prometheus
+[http://kube_pro.ops.club:9090/]
+
+Inside kube and monitoring also services and instances outside kubernetes
+
+![](https://github.com/lihilu/lihilu-kandula_project/blob/readme/pic/PromOnKubewithEc2Instances.JPG)
+
+## Grafana
+[http://kube_graf.ops.club/]
+
+Based on prometheus data source and exposing kandula and other services metrics
+
 
 # Known Issue
-* Jenkins job running without build num so before re-running the job please run the following command
-```bash
-kubectl delete pod kandula-pod
-kubectl delete svc backend-service
-```
-* Consul > Jenkins agent, needed to add a count to it.
+* ansible - automation
+* install Load Balancer service and add it as a record to rout 53 - automation
+* Jenkins - update agent ip with ansible playbook
+* Jmatar - implement it
+* VPN - implement it
 
 Thanks
