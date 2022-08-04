@@ -93,11 +93,4 @@ http://kube_graf.ops.club/
 Based on prometheus data source and exposing kandula and other services metrics
 
 
-# Known Issue
-* ansible - automation
-* install Load Balancer service and add it as a record to rout 53 - automation
-* Jenkins - update agent ip with ansible playbook
-* Jmatar - implement it
-* VPN - implement it
-
 Thanks
